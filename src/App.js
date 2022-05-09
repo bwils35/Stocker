@@ -7,9 +7,10 @@ import LoginForm from "./Components/LoginForm";
 import { DEFAULT_RECONNECT_INTERVAL_MS } from "react-use-websocket/dist/lib/constants";
 
 function App() {
+    //This is a new branch with changes test!!!
     const adminUser = {
         email: "admin@admin.com",
-        password: "admin123",
+        password: "admin1234",
     };
     const [user, setUser] = useState({ name: "", email: "" });
     const [error, setError] = useState("");
