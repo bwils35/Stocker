@@ -38,7 +38,7 @@ function App() {
             email: "",
         });
     };
-
+    //This is a test to see If our Github can connect
     //alter the initial state to be a function that will on execute on initial render.
     const [btcStockList, setbtcStockList] = useState(() => {
         // get the last trade from localStorage
