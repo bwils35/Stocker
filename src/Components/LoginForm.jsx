@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function LoginForm({ Login, error }) {
+function LoginForm({ error, onSetShowLoginHandler, onSetShowTradesHandler }) {
     const [detail, setDetails] = useState({
         name: "",
         email: "",
@@ -10,10 +10,34 @@ function LoginForm({ Login, error }) {
     const submithandler = (e) => {
         e.preventDefault();
         Login(detail);
+
+        onSetShowLoginHandler(false);
+        onSetShowTradesHandler(true);
     };
 
+    const adminUser = {
+        email: "admin@admin.com",
+        password: "admin1234",
+    };
+
+    const Login = (detail) => {
+        console.log(detail);
+
+        if (
+            detail.email == adminUser.email &&
+            detail.password == adminUser.password
+        ) {
+            console.log("Logged In");
+        } else {
+            console.log("failed to login");
+            alert("INCORRECT LOGIN DETAILS");
+        }
+    };
+
+    // create a method to show/hide the login form
+
     return (
-        <form onSubmit={submithandler}>
+        <form className="row" onSubmit={submithandler}>
             <div className="form-inner">
                 <h2>Login</h2>
                 {error != "" ? <div className="error">{error}</div> : ""}

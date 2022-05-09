@@ -3,10 +3,6 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import { assertIsWebSocket } from "react-use-websocket/dist/lib/util";
 
 const WebSocket = (props) => {
-    // const [liveTrades, setLiveTrades] = useState([]);
-    // const { onDeleteStockHandler, keyToManage, stockItem} = props;
-    // const socketUrl = "wss://echo.websocket.events";
-
     const socketUrl = "wss://ws.bitstamp.net";
 
     const {
@@ -64,26 +60,42 @@ const WebSocket = (props) => {
     };
 
     return (
-        <div>
-            <button
-                className="pb-1 mx-1 btn-dark"
-                onClick={() => {
-                    stopLiveTradesEth();
-                    startLiveTradesBtc();
-                }}
+        <>
+            <div
+                class="btn-toolbar mb-3"
+                role="toolbar"
+                aria-label="Toolbar with button groups"
             >
-                Show Bitcoin
-            </button>
-            <button
-                className="pb-1 mx-1 btn-primary"
-                onClick={() => {
-                    startLiveTradesEth();
-                    stopLiveTradesBtc();
-                }}
-            >
-                Show Ethereum
-            </button>
-        </div>
+                <div
+                    class="btn-group mr-2"
+                    role="group"
+                    aria-label="First group"
+                />
+                <button
+                    button
+                    type="button"
+                    class="btn btn-primary btn-md btn-block"
+                    onClick={() => {
+                        stopLiveTradesEth();
+                        startLiveTradesBtc();
+                    }}
+                >
+                    Show Bitcoin
+                </button>
+                <button
+                    button
+                    type="button"
+                    class="btn btn-dark btn-md btn-block d-inline-block ml-1"
+                    onClick={() => {
+                        startLiveTradesEth();
+                        stopLiveTradesBtc();
+                    }}
+                >
+                    Show Ethereum
+                </button>
+                <div className="col-6" />
+            </div>
+        </>
     );
 };
 

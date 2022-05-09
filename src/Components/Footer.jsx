@@ -1,0 +1,9 @@
+const Footer = () => {
+    return (
+        <>
+            <h2 className="Footer">Welcome to STOCKER</h2>
+        </>
+    );
+};
+
+export default Footer;
