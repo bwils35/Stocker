@@ -7,34 +7,27 @@ function LoginForm({ error, onSetShowLoginHandler, onSetShowTradesHandler }) {
         password: "",
     });
 
-    const submithandler = (e) => {
-        e.preventDefault();
-        Login(detail);
-
-        onSetShowLoginHandler(false);
-        onSetShowTradesHandler(true);
-    };
-
     const adminUser = {
         email: "admin@admin.com",
         password: "admin1234",
     };
 
-    const Login = (detail) => {
-        console.log(detail);
-
+    const submithandler = (e) => {
+        e.preventDefault();
+        // Login(detail);
         if (
-            detail.email == adminUser.email &&
-            detail.password == adminUser.password
+            detail.email === adminUser.email &&
+            detail.password === adminUser.password
         ) {
-            console.log("Logged In");
+            onSetShowLoginHandler(false);
+            onSetShowTradesHandler(true);
         } else {
-            console.log("failed to login");
-            alert("INCORRECT LOGIN DETAILS");
+            alert(
+                "You have entered incorrect login information, hint: admin@admin.com - admin1234"
+            );
         }
     };
 
-    // create a method to show/hide the login form
 
     return (
         <form className="row" onSubmit={submithandler}>

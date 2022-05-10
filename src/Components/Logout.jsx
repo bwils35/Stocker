@@ -2,7 +2,7 @@ import React from "react";
 import LoginForm from "./LoginForm";
 
 const Logout = (props) => {
-    const { onSetShowLoginHandler, onSetShowTradesHandler, onLogoutHandler } =
+    const { onSetShowLoginHandler, onSetShowTradesHandler } =
         props;
     // const onLogoutHandler = () => {
     //     console.log("Logged out!");

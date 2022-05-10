@@ -13,9 +13,6 @@ import { ETHCard } from "./Components/Stock";
 import { set } from "react-hook-form";
 
 function App() {
-    // const [user, setUser] = useState({ name: "", email: "" });
-    // const [error, setError] = useState("");
-
     //Sets the visibility of the Stocker ticker
     const [showLogin, setShowLogin] = useState(true);
     const [showTrades, setShowTrades] = useState(() => {
@@ -23,16 +20,16 @@ function App() {
             setShowTrades(true);
         }
     }, [showLogin]);
+    // const [hideETHCard, setHideETHCard] = useState(true);
 
     const [btcStockList, setbtcStockList] = useState(null);
 
     const onSetbtcStockList = (btc) => {
-        console.log("Test BTC");
         console.log(btc.data.price);
         if (29000 > btc.data.price) {
             return;
         }
-        console.log("success");
+        console.log("BTC Connected");
         //     //Returns data from the APIcall and sets to btcStockList for STOCK Component
         return setbtcStockList(btc.data.price);
     };
@@ -43,12 +40,12 @@ function App() {
         if (3500 < stock.data.price) {
             return;
         }
-        console.log("success");
-        //     //Returns data from the APIcall and sets to btcStockList for STOCK Component
+        console.log("ETH Connected");
+        ////Returns data from the APIcall and sets to btcStockList for STOCK Component
         return setEthStockList(stock.data.price);
     };
 
-    // // run each the the component mounts
+    // // run each the the component mounts (used for local storage)
     // useEffect(() => {
     //     // if there are any elements in btcStockList, store it
     //     if (btcStockList !== null) {
@@ -59,12 +56,6 @@ function App() {
     //         localStorage.setItem("ethStockList", ethStockList);
     //     }
     // });
-    const onDeleteBTC = (id) => {
-        // create logic to remove cards
-    };
-    const onDeleteETH = (id) => {
-        // create logic to remove cards
-    };
     return (
         <div className="row">
             <div className="col-md-3" />
@@ -102,21 +93,17 @@ function App() {
                             btcItem={btcStockList}
                             //key={0}
                             keyToManage={0}
-                            onDeleteBTCHandler={onDeleteBTC}
+                            // onDeleteBTCHandler={onDeleteBTC}
                         />
-                    ) : (
-                        ""
-                    )}
+                    ) : null}
                     {showTrades ? (
                         <ETHCard
                             ethItem={ethStockList}
                             //key={0}
                             keyToManage={0}
-                            onDeleteETHHandler={onDeleteETH}
+                            // onDeleteETHHandler={onDeleteETH}
                         />
-                    ) : (
-                        ""
-                    )}
+                    ) : null}
                 </div>
                 <div>
                     <FormSignUp />
