@@ -132,3 +132,31 @@ form .form-inner input[type="submit"]:hover {
     position: relative;
     margin-top: 100px;
 }
+.StockerHeader {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-image: linear-gradient(
+        to right,
+        #ffce00 50%,
+        #ffce00 50%,
+        #9a48fe
+    );
+    color: #000;
+    /* position: absolute; */
+    margin-bottom: 50px;
+}
+.deletestock {
+    color: #ffffff;
+    background-color: rgb(255, 4, 4);
+}
+
+img {
+    max-width: 115px;
+}
+
+img.ethLogo {
+    max-width: 50px;
+}

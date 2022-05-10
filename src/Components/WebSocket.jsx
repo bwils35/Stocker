@@ -58,9 +58,15 @@ const WebSocket = (props) => {
         };
         sendMessage(JSON.stringify(apiCall));
     };
+    const loadingBar = () => {
+        "test";
+    };
 
     return (
         <>
+        <div className="row">
+                <div className="col-4" />
+                <div className="col-6 mt-3">
             <div
                 class="btn-toolbar mb-3"
                 role="toolbar"
@@ -76,7 +82,8 @@ const WebSocket = (props) => {
                     type="button"
                     class="btn btn-primary btn-md btn-block"
                     onClick={() => {
-                        stopLiveTradesEth();
+                        // loadingBar();
+                        // stopLiveTradesEth();
                         startLiveTradesBtc();
                     }}
                 >
@@ -87,13 +94,16 @@ const WebSocket = (props) => {
                     type="button"
                     class="btn btn-dark btn-md btn-block d-inline-block ml-1"
                     onClick={() => {
+                        // loadingBar();
                         startLiveTradesEth();
-                        stopLiveTradesBtc();
+                        // stopLiveTradesBtc();
                     }}
                 >
                     Show Ethereum
                 </button>
+            </div>
                 <div className="col-6" />
+                </div>
             </div>
         </>
     );

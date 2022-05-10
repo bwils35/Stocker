@@ -1,6 +1,21 @@
+import React from "react";
 import LoginForm from "./LoginForm";
 
-const Logout = () => {
+const Logout = (props) => {
+    const { onSetShowLoginHandler, onSetShowTradesHandler, onLogoutHandler } =
+        props;
+    // const onLogoutHandler = () => {
+    //     console.log("Logged out!");
+    //     e.alert("You have been successfully logged out.");
+    // onSetShowLoginHandler(true);
+    // onSetShowTradesHandler(false);
+    // };
+
+    const onLogout = () => {
+        onSetShowLoginHandler(true);
+        onSetShowTradesHandler(false);
+        // Create logout logic
+    };
 
     return (
         <>
@@ -10,6 +25,7 @@ const Logout = () => {
                     <button
                         type="submit"
                         className="btn btn-danger btn-outline-dark btn-md"
+                        onClick={onLogout}
                     >
                         Logout
                     </button>

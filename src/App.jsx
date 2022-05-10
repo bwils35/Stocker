@@ -8,10 +8,13 @@ import { DEFAULT_RECONNECT_INTERVAL_MS } from "react-use-websocket/dist/lib/cons
 import Logout from "./Components/Logout";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import FormSignUp from "./Components/FormSignup";
+import { ETHCard } from "./Components/Stock";
+import { set } from "react-hook-form";
 
 function App() {
-    const [user, setUser] = useState({ name: "", email: "" });
-    const [error, setError] = useState("");
+    // const [user, setUser] = useState({ name: "", email: "" });
+    // const [error, setError] = useState("");
 
     //Sets the visibility of the Stocker ticker
     const [showLogin, setShowLogin] = useState(true);
@@ -21,55 +24,54 @@ function App() {
         }
     }, [showLogin]);
 
-    const [btcStockList, setbtcStockList] = useState(() => {
-        // get the last trade from localStorage
-        const lastTrade = localStorage.getItem("btcStockList");
-        // return JSON.parse(lastTrade);
-    });
-    const [ethStockList, setEthStockList] = useState(() => {
-        // get the last trade from localStorage
-        const lastTrade = localStorage.getItem("ethStockList");
-        // return JSON.parse(lastTrade);
-    });
-    const onSetEthStockList = (stock) => {
-        console.log(stock);
-        if (ethStockList === null) {
-            alert("Successful connection, currently Loading!");
+    const [btcStockList, setbtcStockList] = useState(null);
+
+    const onSetbtcStockList = (btc) => {
+        console.log("Test BTC");
+        console.log(btc.data.price);
+        if (29000 > btc.data.price) {
+            return;
         }
-        //Returns data from the APIcall and sets to btcStockList for STOCK Component
-        setEthStockList(stock.data.price);
+        console.log("success");
+        //     //Returns data from the APIcall and sets to btcStockList for STOCK Component
+        return setbtcStockList(btc.data.price);
     };
 
-    // run each the the component mounts
-    useEffect(() => {
-        // if there are any elements in btcStockList, store it
-        if (btcStockList !== null) {
-            // conver the object into a string and store it
-            localStorage.setItem("btcStockList", JSON.stringify(btcStockList));
+    const [ethStockList, setEthStockList] = useState(null);
+    const onSetEthStockList = (stock) => {
+        console.log(stock.data.price);
+        if (3500 < stock.data.price) {
+            return;
         }
-        if (ethStockList !== null) {
-            localStorage.setItem("ethStockList", JSON.stringify(ethStockList));
-        }
-    });
-    const onSetbtcStockList = (stock) => {
-        console.log(stock);
-        if (btcStockList === null) {
-            alert("Successful connection, currently Loading!");
-        }
-        return setbtcStockList(stock.data.price);
+        console.log("success");
+        //     //Returns data from the APIcall and sets to btcStockList for STOCK Component
+        return setEthStockList(stock.data.price);
     };
-    const onDeleteStock = (id) => {
-        let updatedList = [...btcStockList];
-        updatedList.splice(id, 1);
-        setbtcStockList(updatedList);
+
+    // // run each the the component mounts
+    // useEffect(() => {
+    //     // if there are any elements in btcStockList, store it
+    //     if (btcStockList !== null) {
+    //         // conver the object into a string and store it
+    //         localStorage.setItem("btcStockList", btcStockList);
+    //     }
+    //     if (ethStockList !== null) {
+    //         localStorage.setItem("ethStockList", ethStockList);
+    //     }
+    // });
+    const onDeleteBTC = (id) => {
+        // create logic to remove cards
+    };
+    const onDeleteETH = (id) => {
+        // create logic to remove cards
     };
     return (
         <div className="row">
-            <div className="col-md-4" />
+            <div className="col-md-3" />
             <div className="col-md-6">
                 <div className="App">
                     <div mx-5 className="App">
-                        <h2 className="col-6">
+                        <h2>
                             {showLogin ? (
                                 <>
                                     <header>
@@ -86,9 +88,8 @@ function App() {
                             ) : null}
                         </h2>
                     </div>
-
                     {showTrades ? (
-                        <h1 className="text-color:blue">Stocker</h1>
+                        <h1 className="StockerHeader">Stocker</h1>
                     ) : null}
                     {showTrades ? (
                         <WebSocket
@@ -96,20 +97,38 @@ function App() {
                             setEthStockListHandler={onSetEthStockList}
                         />
                     ) : null}
-                    {btcStockList ? (
+                    {showTrades ? (
                         <Stock
                             btcItem={btcStockList}
                             //key={0}
                             keyToManage={0}
-                            onDeleteStockHandler={onDeleteStock}
+                            onDeleteBTCHandler={onDeleteBTC}
+                        />
+                    ) : (
+                        ""
+                    )}
+                    {showTrades ? (
+                        <ETHCard
+                            ethItem={ethStockList}
+                            //key={0}
+                            keyToManage={0}
+                            onDeleteETHHandler={onDeleteETH}
                         />
                     ) : (
                         ""
                     )}
                 </div>
+                <div>
+                    <FormSignUp />
+                </div>
             </div>
             <div className="col-md-3" />
-            {showTrades ? <Logout /> : null}
+            {showTrades ? (
+                <Logout
+                    onSetShowLoginHandler={setShowLogin}
+                    onSetShowTradesHandler={setShowTrades}
+                />
+            ) : null}
         </div>
     );
 }
