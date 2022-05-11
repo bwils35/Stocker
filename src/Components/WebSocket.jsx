@@ -63,9 +63,7 @@ const WebSocket = (props) => {
         };
         sendMessage(JSON.stringify(apiCall));
     };
-    const loadingBar = () => {
-        "test";
-    };
+ 
 
     return (
         <>
