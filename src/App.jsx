@@ -20,7 +20,6 @@ function App() {
             setShowTrades(true);
         }
     }, [showLogin]);
-    // const [hideETHCard, setHideETHCard] = useState(true);
 
     const [btcStockList, setbtcStockList] = useState(null);
 
@@ -36,11 +35,12 @@ function App() {
 
     const [ethStockList, setEthStockList] = useState(null);
     const onSetEthStockList = (stock) => {
-        console.log(stock.data.price);
+        console.log(stock.data);
         if (3500 < stock.data.price) {
             return;
         }
         console.log("ETH Connected");
+        console.log(stock.data);
         ////Returns data from the APIcall and sets to btcStockList for STOCK Component
         return setEthStockList(stock.data.price);
     };
@@ -94,6 +94,8 @@ function App() {
                             //key={0}
                             keyToManage={0}
                             // onDeleteBTCHandler={onDeleteBTC}
+                            setbtcStockListHandler={onSetbtcStockList}
+                            setEthStockListHandler={onSetEthStockList}
                         />
                     ) : null}
                     {showTrades ? (

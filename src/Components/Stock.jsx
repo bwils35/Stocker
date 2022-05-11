@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import bitcoinLogo from "./Bitcoin_logo2.png";
 import ethereumLogo from "./ethereum_logo.png";
 import WebSocket from "./WebSocket";
+import useWebSocket, { ReadyState } from "react-use-websocket";
 
 const Stock = (props) => {
-    const { keyToManage, btcItem } = props;
+    const {
+        keyToManage,
+        btcItem,
+        setbtcStockListHandler,
+        setEthStockListHandler,
+    } = props;
+    const socketUrl = "wss://ws.bitstamp.net";
 
     // const [hideBTCcard, setHideBTCcard] = useState(true);
     const [btcStockList, setbtcStockList] = useState(null);
@@ -28,6 +35,31 @@ const Stock = (props) => {
         ////Returns data from the APIcall and sets to btcStockList for STOCK Component
         return setEthStockList(stock.data.price);
     };
+    const {
+        sendMessage,
+        sendJsonMessage,
+        lastMessage,
+        lastJsonMessage,
+        readyState,
+        getWebSocket,
+    } = useWebSocket(socketUrl);
+    useEffect(() => {
+        if (lastMessage !== null) {
+            setbtcStockListHandler(JSON.parse(lastMessage.data));
+            setEthStockListHandler(JSON.parse(lastMessage.data));
+        }
+    }, [lastMessage]);
+
+    const stopLiveTradesBtc = () => {
+        const apiCall = {
+            event: "bts:unsubscribe",
+            data: {
+                channel: "live_trades_btcusd",
+            },
+        };
+        sendMessage(JSON.stringify(apiCall));
+        console.log("Cancelled Bitcoin");
+    };
 
     return (
         <>
@@ -35,7 +67,6 @@ const Stock = (props) => {
                 <div className="col-3" />
                 <div className="col-6 mt-1">
                     <div>
-                        {/* <WebSocket setbtcStockListHandler={onSetbtcStockList} /> */}
                         <div className="card border border-dark mt-2">
                             <div className="card-body pb-1">
                                 <h4 className="card-header color-">
@@ -48,16 +79,7 @@ const Stock = (props) => {
                                 <h6 className="card-body">
                                     Most Recent BTC Trade
                                 </h6>
-                                {/* <p className="card-text">${btcStockList}</p> */}
                                 <p className="card-text">${btcItem}</p>
-                                <button
-                                    className="deletestock"
-                                    class="border border-danger"
-                                    type="button"
-                                    // onclick={setHideBTCcard(false)}
-                                >
-                                    Remove
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -69,10 +91,6 @@ const Stock = (props) => {
 
 const ETHCard = (props) => {
     const { keyToManage, ethItem } = props;
-    // const onDeleteETH = (id) => {
-    //     // create logic to remove BTC card
-    // };
-    // const [hideETHCard, setHideETHCard] = useState(true);
     return (
         <>
             <div className="row">
@@ -93,18 +111,8 @@ const ETHCard = (props) => {
                                 <h6 className="card-body">
                                     Most Recent ETH Trade
                                 </h6>
-
-                                {/* <p className="card-text">${ethStockList}</p> */}
                                 <p className="card-text">${ethItem}</p>
                                 <div className="col-6" />
-                                <button
-                                    className="deletestock"
-                                    class="border border-danger"
-                                    type="button"
-                                    // onClick={setHideETHCard(false)}
-                                >
-                                    Remove
-                                </button>
                             </div>
                         </div>
                     </div>

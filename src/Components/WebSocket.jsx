@@ -1,32 +1,12 @@
 import React, { useState, useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { assertIsWebSocket } from "react-use-websocket/dist/lib/util";
+import RemoveBTC from "./RemoveButton";
+import { RemoveETH } from "./RemoveButton";
 
 const WebSocket = (props) => {
     const socketUrl = "wss://ws.bitstamp.net";
     const { setbtcStockListHandler, setEthStockListHandler } = props;
-    // const [btcStockList, setbtcStockList] = useState(null);
-    // const [ethStockList, setEthStockList] = useState(null);
-
-    // const onSetEthStockList = (stock) => {
-    //     console.log(stock.data.price);
-    //     if (3500 < stock.data.price) {
-    //         return;
-    //     }
-    //     console.log("ETH Connected");
-    //     //     //Returns data from the APIcall and sets to btcStockList for STOCK Component
-    //     return setEthStockList(stock.data.price);
-    // };
-
-    // const onSetbtcStockList = (btc) => {
-    //     console.log(btc.data.price);
-    //     if (29000 > btc.data.price) {
-    //         return;
-    //     }
-    //     console.log("BTC Connected");
-    //     //     //Returns data from the APIcall and sets to btcStockList for STOCK Component
-    //     return setbtcStockList(btc.data.price);
-    // };
 
     const {
         sendMessage,
@@ -65,24 +45,24 @@ const WebSocket = (props) => {
         // e.preventDefault();
         sendMessage(JSON.stringify(apiCall));
     };
-    // const stopLiveTradesBtc = () => {
-    //     const apiCall = {
-    //         event: "bts:unsubscribe",
-    //         data: {
-    //             channel: "live_trades_btcusd",
-    //         },
-    //     };
-    //     sendMessage(JSON.stringify(apiCall));
-    // };
-    // const stopLiveTradesEth = () => {
-    //     const apiCall = {
-    //         event: "bts:unsubscribe",
-    //         data: {
-    //             channel: "live_trades_ethusd",
-    //         },
-    //     };
-    //     sendMessage(JSON.stringify(apiCall));
-    // };
+    const stopLiveTradesBtc = () => {
+        const apiCall = {
+            event: "bts:unsubscribe",
+            data: {
+                channel: "live_trades_btcusd",
+            },
+        };
+        sendMessage(JSON.stringify(apiCall));
+    };
+    const stopLiveTradesEth = () => {
+        const apiCall = {
+            event: "bts:unsubscribe",
+            data: {
+                channel: "live_trades_ethusd",
+            },
+        };
+        sendMessage(JSON.stringify(apiCall));
+    };
     const loadingBar = () => {
         "test";
     };
@@ -107,27 +87,27 @@ const WebSocket = (props) => {
                             type="button"
                             class="btn btn-primary btn-md btn-block"
                             onClick={() => {
-                                // loadingBar();
-                                // stopLiveTradesEth();
                                 startLiveTradesBtc();
-                                // onSetbtcStockList();
                             }}
                         >
                             Show Bitcoin
                         </button>
+                        <RemoveBTC
+                            stopLiveTradesBtcHandler={stopLiveTradesBtc}
+                        />
                         <button
                             button
                             type="button"
                             class="btn btn-dark btn-md btn-block d-inline-block ml-1"
                             onClick={() => {
-                                // loadingBar();
                                 startLiveTradesEth();
-                                // stopLiveTradesBtc();
-                                // onSetEthStockList();
                             }}
                         >
                             Show Ethereum
                         </button>
+                        <RemoveETH
+                            stopLiveTradesEthHandler={stopLiveTradesEth}
+                        />
                     </div>
                     <div className="col-6" />
                 </div>
