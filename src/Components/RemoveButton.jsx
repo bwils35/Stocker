@@ -1,13 +1,13 @@
 import React, { useState, useEffect, Component } from "react";
 
 const RemoveBTC = (props) => {
-    const {stopLiveTradesBtcHandler} = props;
+    const { stopLiveTradesBtcHandler } = props;
 
     return (
         <>
             <button
-                className="deletestock"
-                class="border border-danger"
+                class="deletestock"
+                className="border border-dark btn btn-danger btn-md mt-1 m-2"
                 type="button"
                 onClick={stopLiveTradesBtcHandler}
             >
@@ -17,13 +17,13 @@ const RemoveBTC = (props) => {
     );
 };
 const RemoveETH = (props) => {
-    const {stopLiveTradesEthHandler} = props;
+    const { stopLiveTradesEthHandler } = props;
 
     return (
         <>
             <button
-                className="deletestock"
-                class="border border-danger"
+                class="deletestock"
+                className="border border-dark btn btn-danger btn-md mt-1 m-2"
                 type="button"
                 onClick={stopLiveTradesEthHandler}
             >
@@ -34,4 +34,4 @@ const RemoveETH = (props) => {
 };
 
 export default RemoveBTC;
-export {RemoveETH};
+export { RemoveETH };

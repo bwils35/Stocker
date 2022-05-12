@@ -1,6 +1,6 @@
-const CoinData = [
+const TestCoinData = [
     {
-        name: "Bitcoin",
+        // name: "Bitcoin",
         amount: 0.1772,
         amount_str: "0.17720000",
         buy_order_id: 1488763654836226,
@@ -13,7 +13,7 @@ const CoinData = [
         type: 0,
     },
     {
-        name: "Bitcoin", // data.price
+        // name: "Bitcoin",
         amount: 0.1772,
         amount_str: "0.17720000",
         buy_order_id: 1488763654836226,
@@ -27,4 +27,4 @@ const CoinData = [
     },
 ];
 
-export default CoinData;
+export default TestCoinData;

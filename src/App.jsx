@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import React, { useState, useEffect, Component, useRef } from "react";
-import Stock from "./Components/Stock";
+import BTCCard from "./Components/Cards";
 import WebSocket from "./Components/WebSocket";
 import LoginForm from "./Components/LoginForm";
 import { DEFAULT_RECONNECT_INTERVAL_MS } from "react-use-websocket/dist/lib/constants";
@@ -9,11 +9,10 @@ import Logout from "./Components/Logout";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import FormSignUp from "./Components/FormSignup";
-import { ETHCard } from "./Components/Stock";
+import { ETHCard } from "./Components/Cards";
 import { set } from "react-hook-form";
 import { BarChart } from "./Components/BarChart";
-// import CoinData from "./Components/CoinData";
-import { BarController } from "chart.js";
+import { Line } from "chart.js";
 
 function App() {
     // Sets the visibility of the Stocker ticker
@@ -26,8 +25,8 @@ function App() {
 
     const [btcStockList, setbtcStockList] = useState([]);
     const onSetbtcStockList = (btc) => {
-        console.log(btc.data.price);
-        if (29000 > btc.data.price) {
+        console.log(btc.data.label);
+        if (5000 > btc.data.price) {
             return;
         }
         console.log("BTC Connected");
@@ -62,7 +61,7 @@ function App() {
         datasets: [{ backgroundColor: [], data: [] }],
     });
     const onSetCoinData = (name, coinObj) => {
-        if (typeof coinObj.price === "number") {
+        if (coinObj.price > 20000 || coinObj.label === "Bitcoin") {
             let coinSetup = {
                 ...coinData,
                 labels: [...coinData.labels, name],
@@ -77,19 +76,37 @@ function App() {
                         borderColor: "black",
                         borderWidth: 2,
                     },
-                    // {
-                    //     label: name === "Bitcoin" ? "BTC" : "ETH",
-                    //     data: [...coinData.datasets[0].data, coinObj.price],
-                    //     backgroundColor: name === "Bitcoin" ? ["red"] : ["blue"],
-                    //     borderColor: "black",
-                    //     borderWidth: 2,
-                    // },
                 ],
             };
             setCoinData(coinSetup);
         }
     };
 
+    const [EthcoinData, setEthCoinData] = useState({
+        labels: [],
+        datasets: [{ backgroundColor: [], data: [] }],
+    });
+    const onSetEthCoinData = (name, coinObj) => {
+        if (coinObj.price < 4000 || coinObj.label === "Ethereum") {
+            let coinSetup = {
+                ...coinData,
+                labels: [...EthcoinData.labels, name],
+                datasets: [
+                    {
+                        label: name === "Ethereum" ? "ETH" : "BTC",
+                        data: [...EthcoinData.datasets[0].data, coinObj.price],
+                        backgroundColor: [
+                            ...EthcoinData.datasets[0].backgroundColor,
+                            name === "Ethereum" ? "blue" : "red",
+                        ],
+                        borderColor: "black",
+                        borderWidth: 2,
+                    },
+                ],
+            };
+            setEthCoinData(coinSetup);
+        }
+    };
     return (
         <div className="row">
             <div className="col-md-3" />
@@ -126,29 +143,25 @@ function App() {
                             setbtcStockListHandler={onSetbtcStockList}
                             setEthStockListHandler={onSetEthStockList}
                             setCoinDataHandler={onSetCoinData}
+                            setETHDataHandler={onSetEthCoinData}
                         />
                     ) : null}
                     {showTrades ? (
-                        <Stock
+                        <BTCCard
                             btcItem={btcStockList}
-                            //key={0}
-                            keyToManage={0}
-                            // onDeleteBTCHandler={onDeleteBTC}
-                            setbtcStockListHandler={onSetbtcStockList}
-                            setEthStockListHandler={onSetEthStockList}
                         />
                     ) : null}
                     {showTrades ? (
                         <ETHCard
                             ethItem={ethStockList}
-                            //key={0}
-                            keyToManage={0}
-                            // onDeleteETHHandler={onDeleteETH}
                         />
                     ) : null}
-                    {coinData.labels.length > 0 ? (
-                        <BarChart chartData={coinData} />
-                    ) : null}
+                    {coinData.labels.length > 0 ||
+                    EthcoinData.labels.length > 0 ? (
+                        <BarChart chartData={coinData} ethData={EthcoinData} />
+                    ) : (
+                        showTrades
+                    )}
                 </div>
                 <div>
                     <FormSignUp />
@@ -166,3 +179,5 @@ function App() {
 }
 
 export default App;
+
+

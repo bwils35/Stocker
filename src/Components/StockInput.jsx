@@ -3,7 +3,6 @@ import React, { useState } from "react";
 // Utilize a functional component
 const StockInput = (props) => {
     // Local Component State Variables
-    // [currentValue, methodToSetCurrentValue] = default value
     const [stock, setStock] = useState("");
     // When a user clicks search
     const onSubmitHandler = (e) => {

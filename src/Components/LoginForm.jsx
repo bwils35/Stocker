@@ -14,22 +14,19 @@ function LoginForm({ error, onSetShowLoginHandler, onSetShowTradesHandler }) {
 
     const submithandler = (e) => {
         e.preventDefault();
-        onSetShowLoginHandler(false);
-        onSetShowTradesHandler(true);
-
-        // Login(detail);
-        // if (
-        //     detail.email === adminUser.email &&
-        //     detail.password === adminUser.password
-        // ) {
-        //     onSetShowLoginHandler(false);
-        //     onSetShowTradesHandler(true);
-        // } else {
-        //     alert(
-        //         "You have entered incorrect login information, hint: admin@admin.com - admin1234"
-        //     );
-        // }
+        if (
+            detail.email === adminUser.email &&
+            detail.password === adminUser.password
+        ) {
+            onSetShowLoginHandler(false);
+            onSetShowTradesHandler(true);
+        } else {
+            alert(
+                "You have entered incorrect login information, hint: admin@admin.com - admin1234"
+            );
+        }
     };
+
 
     return (
         <form className="row" onSubmit={submithandler}>
