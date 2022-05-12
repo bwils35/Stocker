@@ -14,17 +14,21 @@ function LoginForm({ error, onSetShowLoginHandler, onSetShowTradesHandler }) {
 
     const submithandler = (e) => {
         e.preventDefault();
-        if (
-            detail.email === adminUser.email &&
-            detail.password === adminUser.password
-        ) {
-            onSetShowLoginHandler(false);
-            onSetShowTradesHandler(true);
-        } else {
-            alert(
-                "You have entered incorrect login information, hint: admin@admin.com - admin1234"
-            );
-        }
+        onSetShowLoginHandler(false);
+        onSetShowTradesHandler(true);
+
+
+        // if (
+        //     detail.email === adminUser.email &&
+        //     detail.password === adminUser.password
+        // ) {
+            // onSetShowLoginHandler(false);
+            // onSetShowTradesHandler(true);
+        // } else {
+        //     alert(
+        //         "You have entered incorrect login information, hint: admin@admin.com - admin1234"
+        //     );
+        // }
     };
 
 

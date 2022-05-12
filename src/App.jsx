@@ -13,6 +13,8 @@ import { ETHCard } from "./Components/Cards";
 import { set } from "react-hook-form";
 import { BarChart } from "./Components/BarChart";
 import { Line } from "chart.js";
+import TickerView from "./Views/TickerView";
+import GraphView from "./Views/GraphView";
 
 function App() {
     // Sets the visibility of the Stocker ticker
@@ -124,7 +126,7 @@ function App() {
                                         onSetShowTradesHandler={setShowTrades}
                                     />
                                     <footer>
-                                        <Footer />
+                                        <Footer className="" />
                                     </footer>
                                 </>
                             ) : null}
@@ -144,40 +146,31 @@ function App() {
                             setEthStockListHandler={onSetEthStockList}
                             setCoinDataHandler={onSetCoinData}
                             setETHDataHandler={onSetEthCoinData}
-                        />
-                    ) : null}
-                    {showTrades ? (
-                        <BTCCard
                             btcItem={btcStockList}
-                        />
-                    ) : null}
-                    {showTrades ? (
-                        <ETHCard
                             ethItem={ethStockList}
                         />
                     ) : null}
-                    {coinData.labels.length > 0 ||
-                    EthcoinData.labels.length > 0 ? (
-                        <BarChart chartData={coinData} ethData={EthcoinData} />
-                    ) : (
-                        showTrades
-                    )}
-                </div>
-                <div>
-                    <FormSignUp />
-                </div>
-            </div>
-            <div className="col-md-3" />
+                    {showTrades ? (
+                        <TickerView
+                            btcItem={btcStockList}
+                            ethItem={ethStockList}
+                        />
+                    ) : null}
+                    {showTrades ? (
+                        <GraphView chartData={coinData} ethData={EthcoinData} />
+                    ) : null}
             {showTrades ? (
                 <Logout
                     onSetShowLoginHandler={setShowLogin}
                     onSetShowTradesHandler={setShowTrades}
                 />
             ) : null}
+                </div>
+                <div>{/* <FormSignUp /> */}</div>
+            </div>
+            <div className="col-md-3" />
         </div>
     );
 }
 
 export default App;
-
-

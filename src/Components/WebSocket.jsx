@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { assertIsWebSocket } from "react-use-websocket/dist/lib/util";
+import websocket from "websocket";
 import RemoveBTC from "./RemoveButton";
 import { RemoveETH } from "./RemoveButton";
+import TickerView from "../Views/TickerView";
 
 const WebSocket = (props) => {
     const socketUrl = "wss://ws.bitstamp.net";
@@ -11,6 +13,8 @@ const WebSocket = (props) => {
         setEthStockListHandler,
         setCoinDataHandler,
         setETHDataHandler,
+        btcItem,
+        ethItem,
     } = props;
     const [btc, setBtc] = useState("Bitcoin");
     const [eth, setEth] = useState("Ethereum");
@@ -92,7 +96,7 @@ const WebSocket = (props) => {
                             stopLiveTradesBtcHandler={stopLiveTradesBtc}
                         />
                         <button
-                            button
+                            className="RemoveETH"
                             type="button"
                             class="btn btn-primary btn-outline btn-md btn-block d-inline-block ml-1"
                             onClick={() => {

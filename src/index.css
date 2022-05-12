@@ -111,27 +111,12 @@ form .form-inner input[type="submit"]:hover {
         #9a48fe
     );
     color: #000;
-    /* position: absolute; */
+
     margin-bottom: 50px;
+    position: static;
+    top: 1px;
 }
 
-.Footer {
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    background-image: linear-gradient(
-        to right,
-        #ffce00 50%,
-        #ffce00 50%,
-        #9a48fe
-    );
-    color: #000;
-    flex-shrink: 0;
-    position: relative;
-    margin-top: 100px;
-}
 .StockerHeader {
     box-sizing: border-box;
     width: 100%;
@@ -160,4 +145,69 @@ img {
 img.ethLogo {
     max-width: 50px;
     max-height: 25px;
+}
+
+/* .cards .ETHCard {
+    float: right;
+} */
+
+.BTCCard {
+    display: inline-flex;
+    position: absolute;
+    left: 950px;
+}
+.ETHCard {
+    display: inline-flex;
+    position: absolute;
+    right: 1400px;
+}
+.BTCGraph {
+    display: inline-flex;
+    min-width: 600px;
+    max-width: 700px;
+    position: absolute;
+    top: 375px;
+    left: 1200px;
+}
+.ETHGraph {
+    display: inline-flex;
+    min-width: 600px;
+    max-width: 700px;
+    position: relative;
+    top: 175px;
+    right: 50px;
+}
+/* .Footer {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    background-image: linear-gradient(
+        to right,
+        #ffce00 50%,
+        #ffce00 50%,
+        #9a48fe
+    );
+    color: #000;
+    flex-shrink: 0;
+    position: relative;
+    margin-top: 500px;
+} */
+
+.LogOut {
+    color: white;
+    background-color: Red;
+    position: relative;
+    top: 200px;
+    min-width: 300px;
+    border: 1px solid #f9f2f2;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 20px;
+    min-height: 50px;
+    right: 150px;
+}
+.LogOut:hover {
+    background-color: black;
 }
