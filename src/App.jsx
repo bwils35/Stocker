@@ -12,7 +12,7 @@ import FormSignUp from "./Components/FormSignup";
 import { ETHCard } from "./Components/Stock";
 import { set } from "react-hook-form";
 import { BarChart } from "./Components/BarChart";
-import { CoinData } from "./Components/CoinData";
+// import CoinData from "./Components/CoinData";
 import { BarController } from "chart.js";
 
 function App() {
@@ -34,15 +34,14 @@ function App() {
         //Returns data from the APIcall and sets to btcStockList for STOCK Component
         return setbtcStockList(btc.data.price);
     };
-
-    const [ethStockList, setEthStockList] = useState(null);
+    const [ethStockList, setEthStockList] = useState([]);
     const onSetEthStockList = (stock) => {
         console.log(stock.data);
         if (3500 < stock.data.price) {
             return;
         }
         console.log("ETH Connected");
-        console.log(stock.data);
+        console.log(ethStockList);
         ////Returns data from the APIcall and sets to btcStockList for STOCK Component
         return setEthStockList(stock.data.price);
     };
@@ -59,18 +58,38 @@ function App() {
     //     }
     // });
     const [coinData, setCoinData] = useState({
-        labels: CoinData.map((data) => data.id),
-        datasets: [
-            {
-                label: "Users Gained",
-                // data: CoinData.map((data) => data.data.price),
-                data: CoinData.map((data) => data.userGain),
-                backgroundColor: ["red", "blue", "green"],
-                borderColor: "black",
-                borderWidth: 2,
-            },
-        ],
+        labels: [],
+        datasets: [{ backgroundColor: [], data: [] }],
     });
+    const onSetCoinData = (name, coinObj) => {
+        if (typeof coinObj.price === "number") {
+            let coinSetup = {
+                ...coinData,
+                labels: [...coinData.labels, name],
+                datasets: [
+                    {
+                        label: name === "Bitcoin" ? "BTC" : "ETH",
+                        data: [...coinData.datasets[0].data, coinObj.price],
+                        backgroundColor: [
+                            ...coinData.datasets[0].backgroundColor,
+                            name === "Bitcoin" ? "red" : "blue",
+                        ],
+                        borderColor: "black",
+                        borderWidth: 2,
+                    },
+                    // {
+                    //     label: name === "Bitcoin" ? "BTC" : "ETH",
+                    //     data: [...coinData.datasets[0].data, coinObj.price],
+                    //     backgroundColor: name === "Bitcoin" ? ["red"] : ["blue"],
+                    //     borderColor: "black",
+                    //     borderWidth: 2,
+                    // },
+                ],
+            };
+            setCoinData(coinSetup);
+        }
+    };
+
     return (
         <div className="row">
             <div className="col-md-3" />
@@ -95,12 +114,18 @@ function App() {
                         </h2>
                     </div>
                     {showTrades ? (
-                        <h1 className="StockerHeader">Stocker</h1>
+                        <h1
+                            className="StockerHeader"
+                            // onClick={console.log(coinData)}
+                        >
+                            Stocker
+                        </h1>
                     ) : null}
                     {showTrades ? (
                         <WebSocket
                             setbtcStockListHandler={onSetbtcStockList}
                             setEthStockListHandler={onSetEthStockList}
+                            setCoinDataHandler={onSetCoinData}
                         />
                     ) : null}
                     {showTrades ? (
@@ -121,7 +146,9 @@ function App() {
                             // onDeleteETHHandler={onDeleteETH}
                         />
                     ) : null}
-                    {showTrades ? <BarChart chartData={coinData} /> : null}
+                    {coinData.labels.length > 0 ? (
+                        <BarChart chartData={coinData} />
+                    ) : null}
                 </div>
                 <div>
                     <FormSignUp />

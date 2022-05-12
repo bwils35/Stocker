@@ -5,8 +5,13 @@ import RemoveBTC from "./RemoveButton";
 import { RemoveETH } from "./RemoveButton";
 
 const WebSocket = (props) => {
+    const [currentCoinName, setCurrentCoinName] = useState("");
     const socketUrl = "wss://ws.bitstamp.net";
-    const { setbtcStockListHandler, setEthStockListHandler } = props;
+    const {
+        setbtcStockListHandler,
+        setEthStockListHandler,
+        setCoinDataHandler,
+    } = props;
 
     const {
         sendMessage,
@@ -20,10 +25,11 @@ const WebSocket = (props) => {
         if (lastMessage !== null) {
             setbtcStockListHandler(JSON.parse(lastMessage.data));
             setEthStockListHandler(JSON.parse(lastMessage.data));
+            setCoinDataHandler(currentCoinName, JSON.parse(lastMessage.data).data);
         }
     }, [lastMessage]);
     //JSON Message sent to API for Btc to USD
-    const startLiveTradesBtc = (e) => {
+    const startLiveTradesBtc = () => {
         const apiCall = {
             event: "bts:subscribe",
             data: {
@@ -32,6 +38,7 @@ const WebSocket = (props) => {
         };
         // e.preventDefault();
         sendMessage(JSON.stringify(apiCall));
+        setCurrentCoinName("Bitcoin");
         // Needed: Display the connection was successful and display loading
     };
     //JSON Message sent to API for Eth to USD
@@ -44,6 +51,7 @@ const WebSocket = (props) => {
         };
         // e.preventDefault();
         sendMessage(JSON.stringify(apiCall));
+        setCurrentCoinName("Ethereum");
     };
     const stopLiveTradesBtc = () => {
         const apiCall = {
@@ -63,7 +71,6 @@ const WebSocket = (props) => {
         };
         sendMessage(JSON.stringify(apiCall));
     };
- 
 
     return (
         <>
@@ -85,6 +92,7 @@ const WebSocket = (props) => {
                             type="button"
                             class="btn btn-primary btn-md btn-block"
                             onClick={() => {
+                                
                                 startLiveTradesBtc();
                             }}
                         >

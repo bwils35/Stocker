@@ -1,44 +1,30 @@
-// const CoinData = ({coinData}) => {
-//     // useEffect(() => {
-//     //     const fetch = async () => {
-//     //         await fetch("https://www.bitstamp.net/api/v2/ticker/btcusd", {
-//     //             method: 'GET',
-//     //         })
-//     //     }
-//     // }, [])
-//     return(
-//         <>
-// 		<CoinData coinDat={coinData}/>
-// 		</>
-//     )
-// }
-
-
-export const CoinData = [
-    // fetch("https://www.bitstamp.net/api/v2/ticker/btcusd")
-    // .then((response) => response.json())
-    // .then((data) => this.setState({ data: data.feed }))
-
-
-    
-	{
-		id: 1,
-		year: 2016,
-		userGain: 80000,
-		userLost: 823,
-	},
-	{
-		id: 2,
-		year: 2017,
-		userGain: 40000,
-		userLost: 345,
-	},
-	{
-		id: 3,
-		year: 2018,
-		userGain: 60000,
-		userLost: 500,
-	},
+const CoinData = [
+    {
+        name: "Bitcoin",
+        amount: 0.1772,
+        amount_str: "0.17720000",
+        buy_order_id: 1488763654836226,
+        id: 231960191,
+        microtimestamp: "1652302663826000",
+        price: 28235.21,
+        price_str: "28235.21",
+        sell_order_id: 1488763654565888,
+        timestamp: "1652302663",
+        type: 0,
+    },
+    {
+        name: "Bitcoin", // data.price
+        amount: 0.1772,
+        amount_str: "0.17720000",
+        buy_order_id: 1488763654836226,
+        id: 231960191,
+        microtimestamp: "1652302663826000",
+        price: 28235.21,
+        price_str: "28235.21",
+        sell_order_id: 1488763654565888,
+        timestamp: "1652302663",
+        type: 0,
+    },
 ];
 
-
+export default CoinData;
