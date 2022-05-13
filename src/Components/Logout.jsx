@@ -16,8 +16,9 @@ const Logout = (props) => {
                 <div className="col-6" />
                 <div className="col-6 mt-3">
                     <button
-                        type="submit"
                         className="btn btn-danger btn-outline-dark btn-md"
+                        type="submit"
+                        class="LogOut"
                         onClick={onLogout}
                     >
                         Logout
