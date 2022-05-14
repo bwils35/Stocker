@@ -11,11 +11,17 @@ import SignatureBlock from "./Components/Signature";
 function App() {
 	// Sets the visibility of the Stocker ticker
 	const [showLogin, setShowLogin] = useState(true);
-	const [showTrades, setShowTrades] = useState(() => {
-		if (setShowLogin === false) {
-			setShowTrades(true);
-		}
-	}, [showLogin]);
+	const [showTrades, setShowTrades] = useState(
+		(e) => {
+			if (setShowLogin === false) {
+				e.preventDefault();
+				setShowTrades(true);
+			}
+		},
+		[showLogin]
+	);
+	// run each the the component mounts (used for local storage)
+
 	return (
 		<div className="row">
 			<div className="col-md-3" />
@@ -68,17 +74,6 @@ function App() {
 export default App;
 
 // console.log(number);
-// // run each the the component mounts (used for local storage)
-// useEffect(() => {
-//     // if there are any elements in btcStockList, store it
-//     if (btcStockList !== null) {
-//         // conver the object into a string and store it
-//         localStorage.setItem("btcStockList", btcStockList);
-//     }
-//     if (ethStockList !== null) {
-//         localStorage.setItem("ethStockList", ethStockList);
-//     }
-// });
 
 // // // // // //
 // Chart.defaults.global.options.scales;

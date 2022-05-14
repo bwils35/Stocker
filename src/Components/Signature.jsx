@@ -7,8 +7,8 @@ const SignatureBlock = () => {
 				<div className="row">
 					<div className="col-6" />
 					<div className="col-6 mt-3">
-						<h5 className="toUnderline">Designed/Developed by:</h5>
-						<p className="designers">Bradley & Dalton</p>
+						<h5 className="toUnderline"></h5>
+						<p className="designers"></p>
 						<div className="col-6" />
 					</div>
 				</div>

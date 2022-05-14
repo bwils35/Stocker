@@ -19,6 +19,7 @@ const WebSocketView = () => {
 		//Returns data from the APIcall and sets to btcStockList for STOCK Component
 		return setbtcStockList(btc.data.price);
 	};
+
 	const [ethStockList, setEthStockList] = useState([]);
 	const onSetEthStockList = (stock) => {
 		console.log(stock.data.label);
@@ -30,10 +31,23 @@ const WebSocketView = () => {
 		////Returns data from the APIcall and sets to btcStockList for STOCK Component
 		return setEthStockList(stock.data.price);
 	};
+
+	useEffect(() => {
+		// if there are any elements in btcStockList, store it
+		if (btcStockList !== null) {
+			// conver the object into a string and store it
+			localStorage.setItem("btcStockList", btcStockList);
+		}
+		if (ethStockList !== null) {
+			localStorage.setItem("ethStockList", ethStockList);
+		}
+	});
+
 	const [coinData, setCoinData] = useState({
 		labels: [],
 		datasets: [{ backgroundColor: [], data: [] }],
 	});
+
 	const onSetCoinData = (name, coinObj) => {
 		if (coinObj.price > 20000 || coinObj.label === "Bitcoin") {
 			let coinSetup = {
