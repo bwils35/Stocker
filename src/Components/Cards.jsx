@@ -41,7 +41,7 @@ const ETHCard = (props) => {
 								alt="Ethereum Logo"
 								className="ethLogo"
 							/>
-							Etherium{" "}
+							Ethereum{" "}
 						</h4>
 						<h6 className="card-body">Most Recent ETH Trade</h6>
 						<p className="card-text">${ethItem}</p>

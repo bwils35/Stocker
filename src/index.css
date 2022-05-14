@@ -257,3 +257,34 @@ img.ethLogo {
 	bottom: 82px;
 	/* background-color: transparent; */
 }
+
+.designers {
+	font-style: italic;
+	/* text-decoration: ; */
+}
+
+.toUnderline {
+	text-decoration: underline;
+	font-style: italic;
+	display: inline-flex;
+}
+
+.signature {
+	width: 250%;
+	height: 250%;
+	box-sizing: border-box;
+	display: -webkit-flex;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	background-image: linear-gradient(
+		to bottom,
+		#ffd276,
+		#e8ae68,
+		#a57f60,
+		#e3a587,
+		#db5a42
+	);
+	position: relative;
+	right: 700px;
+}
