@@ -7,6 +7,7 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import WebSocketView from "./Views/WebSocketView";
 import SignatureBlock from "./Components/Signature";
+import FormSignUp from "./Components/FormSignup";
 
 function App() {
 	// Sets the visibility of the Stocker ticker
@@ -70,7 +71,7 @@ function App() {
 							{showTrades ? <SignatureBlock /> : null}
 						</div>
 					</div>
-					<div>{/* <FormSignUp /> */}</div>
+					<div><FormSignUp /></div>
 				</div>
 				<div className="col-md-3" />
 			</div>

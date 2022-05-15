@@ -3,17 +3,7 @@ import { Bar, Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
 export function BarChart({ chartData, ethData }) {
-	// const options = {
-	//     scales: {
-	//         yAxes: [
-	//             {
-	//                 ticks: {
-	//                     beginAtZero: true,
-	//                 },
-	//             },
-	//         ],
-	//     },
-	// }
+
 	return (
 		<>
 			<div className="BTCGraph">
