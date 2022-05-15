@@ -165,6 +165,9 @@ img.ethLogo {
 /* .cards .ETHCard {
     float: right;
 } */
+.mainView {
+	position: relative;
+}
 
 .BTCCard {
 	display: inline-flex;
@@ -215,15 +218,15 @@ img.ethLogo {
 .LogOut {
 	color: white;
 	background-color: Red;
-	position: absolute;
-	top: 75px;
+	position: relative;
+	bottom: 900px;
+	left: 600px;
 	min-width: 300px;
 	border: 1px solid #f9f2f2;
 	border-radius: 10px;
 	text-align: center;
 	line-height: 20px;
 	min-height: 50px;
-	right: 150px;
 	border: 1px solid #000;
 }
 .LogOut:hover {

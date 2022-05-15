@@ -20,53 +20,60 @@ function App() {
 		},
 		[showLogin]
 	);
-	// run each the the component mounts (used for local storage)
 
 	return (
-		<div className="row">
-			<div className="col-md-3" />
-			<div className="col-md-6">
-				<div className="App">
-					<div mx-5 className="App">
-						<h2>
-							{showLogin ? (
-								<>
-									<header>
-										<Header />
-									</header>
-									<LoginForm
-										onSetShowLoginHandler={setShowLogin}
-										onSetShowTradesHandler={setShowTrades}
-									/>
-									<footer>
-										<Footer className="" />
-									</footer>
-								</>
+		<div
+			className="viewport"
+			content="width=device-width"
+			initial-scale="1"
+		>
+			<div className="row">
+				<div className="col-md-3" />
+				<div className="col-md-6">
+					<div className="App">
+						<div mx-5 className="App">
+							<h2>
+								{showLogin ? (
+									<>
+										<header>
+											<Header />
+										</header>
+										<LoginForm
+											onSetShowLoginHandler={setShowLogin}
+											onSetShowTradesHandler={
+												setShowTrades
+											}
+										/>
+										<footer>
+											<Footer className="" />
+										</footer>
+									</>
+								) : null}
+							</h2>
+						</div>
+						<div>
+							{showTrades ? (
+								<h1
+									className="StockerHeader"
+									// onClick={console.log(coinData)}
+								>
+									Stocker
+								</h1>
 							) : null}
-						</h2>
+							{showTrades ? <WebSocketView /> : null}
+							{showTrades ? (
+								<Logout
+									onSetShowLoginHandler={setShowLogin}
+									onSetShowTradesHandler={setShowTrades}
+								/>
+							) : null}
+							{showTrades ? <SignatureBlock /> : null}
+						</div>
 					</div>
-					<div>
-						{showTrades ? (
-							<h1
-								className="StockerHeader"
-								// onClick={console.log(coinData)}
-							>
-								Stocker
-							</h1>
-						) : null}
-						{showTrades ? <WebSocketView /> : null}
-						{showTrades ? (
-							<Logout
-								onSetShowLoginHandler={setShowLogin}
-								onSetShowTradesHandler={setShowTrades}
-							/>
-						) : null}
-						{showTrades ? <SignatureBlock /> : null}
-					</div>
+					<div>{/* <FormSignUp /> */}</div>
 				</div>
-				<div>{/* <FormSignUp /> */}</div>
+				<div className="col-md-3" />
 			</div>
-			<div className="col-md-3" />
 		</div>
 	);
 }
