@@ -1,17 +1,17 @@
 import React from "react";
 
-const Footer = () => {
-	return (
-		<>
-			<h2 className="Footer">Welcome to STOCKER</h2>
-		</>
-	);
-};
-
 const Header = () => {
 	return (
 		<>
 			<h2 className="Header">Welcome to STOCKER</h2>
+		</>
+	);
+};
+
+const Footer = () => {
+	return (
+		<>
+			<h2 className="Footer">Welcome to STOCKER</h2>
 		</>
 	);
 };

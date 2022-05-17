@@ -20,9 +20,9 @@ const WebSocket = (props) => {
 	useEffect(() => {
 		if (lastMessage !== null) {
 			// setbtcStockListHandler(JSON.parse(lastMessage.data));
-			setCoinDataHandler(btc, JSON.parse(lastMessage.data).data);
+			setCoinDataHandler(btc, JSON.parse(lastMessage.data).data); //Local time is passed with JSON parse to Chart
 			setBtc(currentDTG);
-			console.log(JSON.parse(lastMessage.data));
+			// console.log(JSON.parse(lastMessage.data));
 			//
 			if (
 				Object.keys(JSON.parse(lastMessage.data).data).length &&
@@ -65,6 +65,7 @@ const WebSocket = (props) => {
 		};
 		sendMessage(JSON.stringify(apiCall));
 	};
+
 	return (
 		<>
 			<div className="row">
