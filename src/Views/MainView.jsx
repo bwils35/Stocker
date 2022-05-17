@@ -38,7 +38,7 @@ const MainView = () => {
 	//Models data for ChartJS in a format that can be displayed - price data (int value)
 	const onSetCoinData = (xAxisLabel, coinObj) => {
 		//Coin data is seperated by value of the coin.  TODO: Optimize by setting to Channel name from WebSocket.
-		if (coinObj.price > 20000 || coinObj.label === "Bitcoin") {
+		if (coinObj.channel === "live_trades_btcusd") {
 			// creates an array based on data from the database
 			btcData.map((coin) => {
 				let coinSetup = {
@@ -46,11 +46,13 @@ const MainView = () => {
 					labels: [...coinData.labels, xAxisLabel],
 					datasets: [
 						{
-							label: xAxisLabel === "" ? "" : "BTC",
+							label: "BTC",
 							data: [...coinData.datasets[0].data, coin.price],
 							backgroundColor: [
 								...coinData.datasets[0].backgroundColor,
-								xAxisLabel === "" ? "red" : "blue",
+								coinObj.channel === "live_trades_btcusd"
+									? "red"
+									: "blue",
 							],
 							borderColor: "black",
 							borderWidth: 2,
@@ -58,7 +60,7 @@ const MainView = () => {
 					],
 				};
 				setCoinData(coinSetup);
-				console.log(coinObj);
+				console.log(xAxisLabel);
 			});
 		}
 	};
@@ -76,7 +78,7 @@ const MainView = () => {
 	};
 
 	const onSetEthCoinData = (xAxisLabel, coinObj) => {
-		if (coinObj.price < 4000 || coinObj.label === "Ethereum") {
+		if (coinObj.channel === "live_trades_ethusd") {
 			ethData.map((coin) => {
 				let coinSetup = {
 					...coinData,
