@@ -1,38 +1,56 @@
-import React, { useState, useEffect, Component, useRef } from "react";
+import React, { useState } from "react";
 import WebSocket, { ETHWebSocket } from "../Components/WebSocket";
-import { Bar, Line } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
 import BTCCard, { ETHCard } from "../Components/Cards";
-import GraphView from "./GraphView";
 import Footer from "../Components/Banners";
+import { CoinCharts } from "../Components/CoinCharts";
+import Header from "../Components/Banners";
+import LoginForm from "../Components/LoginForm";
+import Logout from "../Components/Logout";
 
 const MainView = () => {
-	//Used to set Card Value - Feeds W
-	const [btcStockList, setbtcStockList] = useState([]);
-	const [btcData, setBtcData] = useState([]);
+	/* Opens and closes pages by setting values to true/false */
+	const [showLogin, setShowLogin] = useState(true);
+	const [showTrades, setShowTrades] = useState(
+		(e) => {
+			if (setShowLogin === false) {
+				e.preventDefault();
+				setShowTrades(true);
+			}
+		},
+		[showLogin]
+	);
+
+	/* Local Component State Variables used to set various values */
+	const [btcStockList, setbtcStockList] = useState([]); // sets value displayed on BTCCard based on live values being stored in the database
+	const [btcData, setBtcData] = useState([]); // sets the data in a format ready for chartjs based on live values being stored in the database
+	// sets the data in a format ready for chartjs
 	const [coinData, setCoinData] = useState({
 		labels: [],
 		datasets: [{ backgroundColor: [], data: [] }],
 	});
 
+	/* Receives entire dbList through Back-End Server via routes(axios) */
 	const dbDataHandler = (dbList) => {
-		setBtcData(dbList);
-		setbtcStockList(dbList[dbList.length - 2].price);
+		setBtcData(dbList); // Sets btcData with an array object from the Database
+		setbtcStockList(dbList[dbList.length - 2].price); // Passes the most recent DataBase value to the BTC Card to display
 	};
 
-	const onSetCoinData = (name, coinObj) => {
+	//Models data for ChartJS in a format that can be displayed - price data (int value)
+	const onSetCoinData = (xAxisLabel, coinObj) => {
+		//Coin data is seperated by value of the coin.  TODO: Optimize by setting to Channel name from WebSocket.
 		if (coinObj.price > 20000 || coinObj.label === "Bitcoin") {
+			// creates an array based on data from the database
 			btcData.map((coin) => {
 				let coinSetup = {
 					...coinData,
-					labels: [...coinData.labels, name],
+					labels: [...coinData.labels, xAxisLabel],
 					datasets: [
 						{
-							label: name === "" ? "" : "BTC",
+							label: xAxisLabel === "" ? "" : "BTC",
 							data: [...coinData.datasets[0].data, coin.price],
 							backgroundColor: [
 								...coinData.datasets[0].backgroundColor,
-								name === "Bitcoin" ? "red" : "blue",
+								xAxisLabel === "" ? "red" : "blue",
 							],
 							borderColor: "black",
 							borderWidth: 2,
@@ -40,6 +58,7 @@ const MainView = () => {
 					],
 				};
 				setCoinData(coinSetup);
+				console.log(coinObj);
 			});
 		}
 	};
@@ -56,19 +75,19 @@ const MainView = () => {
 		setEthStockList(dbList[dbList.length - 2].price);
 	};
 
-	const onSetEthCoinData = (name, coinObj) => {
+	const onSetEthCoinData = (xAxisLabel, coinObj) => {
 		if (coinObj.price < 4000 || coinObj.label === "Ethereum") {
 			ethData.map((coin) => {
 				let coinSetup = {
 					...coinData,
-					labels: [...EthcoinData.labels, name],
+					labels: [...EthcoinData.labels, xAxisLabel],
 					datasets: [
 						{
-							label: name === "" ? "" : "ETH",
+							label: xAxisLabel === "" ? "" : "ETH",
 							data: [...EthcoinData.datasets[0].data, coin.price],
 							backgroundColor: [
 								...EthcoinData.datasets[0].backgroundColor,
-								name === "Ethereum" ? "blue" : "red",
+								xAxisLabel === "Ethereum" ? "blue" : "red",
 							],
 							borderColor: "black",
 							borderWidth: 2,
@@ -76,26 +95,53 @@ const MainView = () => {
 					],
 				};
 				setEthCoinData(coinSetup);
+				console.log("🚀" + coinObj.channel);
 			});
 		}
 	};
 	return (
 		<>
 			<div className="mainView">
-				<WebSocket
-					setCoinDataHandler={onSetCoinData}
-					btcItem={btcStockList}
-					ondbDataHandler={dbDataHandler}
-				/>
-				<ETHWebSocket
-					setETHDataHandler={onSetEthCoinData}
-					ethItem={ethStockList}
-					ondbEthDataHandler={dbEthDataHandler}
-				/>
-				<BTCCard btcItem={btcStockList} />
-				<ETHCard ethItem={ethStockList} />
-				<GraphView chartData={coinData} ethData={EthcoinData} />
-				<Footer />
+				{showLogin ? (
+					<>
+						<header>
+							<Header />
+						</header>
+						<LoginForm
+							onSetShowLoginHandler={setShowLogin}
+							onSetShowTradesHandler={setShowTrades}
+						/>
+						<footer>
+							<Footer className="" />
+						</footer>
+					</>
+				) : null}
+
+				{showTrades ? (
+					<>
+						<WebSocket
+							setCoinDataHandler={onSetCoinData}
+							btcItem={btcStockList}
+							ondbDataHandler={dbDataHandler}
+						/>
+						<ETHWebSocket
+							setETHDataHandler={onSetEthCoinData}
+							ethItem={ethStockList}
+							ondbEthDataHandler={dbEthDataHandler}
+						/>
+						<BTCCard btcItem={btcStockList} />
+						<ETHCard ethItem={ethStockList} />
+						<CoinCharts
+							chartData={coinData}
+							ethData={EthcoinData}
+						/>
+						<Footer />
+						<Logout
+							onSetShowLoginHandler={setShowLogin}
+							onSetShowTradesHandler={setShowTrades}
+						/>
+					</>
+				) : null}
 			</div>
 		</>
 	);
