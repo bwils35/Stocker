@@ -2,37 +2,24 @@ import React, { useState, useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { assertIsWebSocket } from "react-use-websocket/dist/lib/util";
 import websocket from "websocket";
-import RemoveBTC from "./RemoveButton";
-import { RemoveETH } from "./RemoveButton";
-import TickerView from "../Views/TickerView";
 import axios from "axios";
 
 const WebSocket = (props) => {
 	const socketUrl = "wss://ws.bitstamp.net";
-	const {
-		setbtcStockListHandler,
-		// setEthStockListHandler,
-		setCoinDataHandler,
-		// setETHDataHandler,
-		btcItem,
-		ondbDataHandler,
-		ondbEthDataHandler,
-		// ethItem,
-	} = props;
+	const { setCoinDataHandler, ondbDataHandler } = props;
 	var x = new Date();
 	var hour = x.getHours();
 	var minute = x.getMinutes();
 	var second = x.getSeconds();
 	var currentDTG = `${hour}:${minute}:${second}`;
 
-	// const [btc, setBtc] = useState("Bitcoin");
+	// LCSV that sets the x-axis chart labels with local time.
 	const [btc, setBtc] = useState(currentDTG);
-	// const [eth, setEth] = useState(currentDTG);
 
 	const { sendMessage, lastMessage } = useWebSocket(socketUrl);
 	useEffect(() => {
 		if (lastMessage !== null) {
-			setbtcStockListHandler(JSON.parse(lastMessage.data));
+			// setbtcStockListHandler(JSON.parse(lastMessage.data));
 			setCoinDataHandler(btc, JSON.parse(lastMessage.data).data);
 			setBtc(currentDTG);
 			console.log(JSON.parse(lastMessage.data));
@@ -48,15 +35,14 @@ const WebSocket = (props) => {
 					timestamp: bitcoin.timestamp,
 				};
 				axios
-					.post(`http://localhost:3001/addBitcoin`, coinSetup)
+					.post("http://localhost:3001/addBitcoin", coinSetup)
 					.then((res) => console.log(res))
 					.catch((err) => console.error(err));
+				axios
+					.get(`http://localhost:3001/getAllBitcoin`)
+					.then((res) => ondbDataHandler(res.data))
+					.catch((err) => console.error(err));
 			}
-
-			axios
-				.get(`http://localhost:3001/getAllBitcoin`)
-				.then((res) => ondbDataHandler(res.data))
-				.catch((err) => console.error(err));
 		}
 	}, [lastMessage]);
 	//JSON Message sent to API for Btc to USD
@@ -105,9 +91,17 @@ const WebSocket = (props) => {
 							>
 								Show Bitcoin
 							</button>
-							<RemoveBTC
+							<button
+								class="deletestock"
+								className="border border-dark btn btn-danger btn-md mt-1 m-2"
+								type="button"
+								onClick={stopLiveTradesBtc}
+							>
+								Remove BTC
+							</button>
+							{/* <RemoveBTC
 								stopLiveTradesBtcHandler={stopLiveTradesBtc}
-							/>
+							/> */}
 						</div>
 					</div>
 					<div className="col-6" />
@@ -121,7 +115,7 @@ const WebSocket = (props) => {
 
 const ETHWebSocket = (props) => {
 	const socketUrl = "wss://ws.bitstamp.net";
-	const { setEthStockListHandler, setETHDataHandler, ethItem } = props;
+	const { setETHDataHandler, ondbEthDataHandler } = props;
 	var x = new Date();
 	var hour = x.getHours();
 	var minute = x.getMinutes();
@@ -133,7 +127,6 @@ const ETHWebSocket = (props) => {
 	const { sendMessage, lastMessage } = useWebSocket(socketUrl);
 	useEffect(() => {
 		if (lastMessage !== null) {
-			setEthStockListHandler(JSON.parse(lastMessage.data));
 			setETHDataHandler(eth, JSON.parse(lastMessage.data).data);
 			setEth(currentDTG);
 			if (
@@ -150,11 +143,11 @@ const ETHWebSocket = (props) => {
 					.post(`http://localhost:3001/addEthereum`, coinSetup)
 					.then((res) => console.log(res))
 					.catch((err) => console.error(err));
+				axios
+					.get(`http://localhost:3001/getAllEthereum`)
+					.then((res) => ondbEthDataHandler(res.data))
+					.catch((err) => console.error(err));
 			}
-			axios
-				.get(`http://localhost:3001/getAllEthereum`)
-				.then((res) => console.log(res.data))
-				.catch((err) => console.error(err));
 		}
 	}, [lastMessage]);
 	//JSON Message sent to API for Eth to USD
@@ -202,9 +195,17 @@ const ETHWebSocket = (props) => {
 							>
 								Show Ethereum
 							</button>
-							<RemoveETH
+							<button
+								class="deletestock"
+								className="border border-dark btn btn-danger btn-md mt-1 m-2"
+								type="button"
+								onClick={stopLiveTradesEth}
+							>
+								Remove ETH
+							</button>
+							{/* <RemoveETH
 								stopLiveTradesEthHandler={stopLiveTradesEth}
-							/>
+							/> */}
 						</div>
 					</div>
 					<div className="col-6" />

@@ -3,10 +3,9 @@ import "./index.css";
 import React, { useState, useEffect, Component, useRef } from "react";
 import LoginForm from "./Components/LoginForm";
 import Logout from "./Components/Logout";
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
-import WebSocketView from "./Views/WebSocketView";
-import SignatureBlock from "./Components/Signature";
+import { Header } from "./Components/Banners";
+import Footer from "./Components/Banners";
+import MainView from "./Views/MainView";
 import FormSignUp from "./Components/FormSignup";
 import axios from "axios";
 
@@ -22,25 +21,6 @@ function App() {
 		},
 		[showLogin]
 	);
-
-	const HitBackend = () => {
-		let coin = { coinName: `Bitcoin` };
-		axios
-			.post(`http://localhost:3001/addBitcoin`, coin)
-			.then((res) => console.log(res))
-			.catch((err) => console.error(err));
-
-		// fetch(`http://localhost:3001`, {
-		// 	method: "POST",
-		// 	headers: { "Content-Type": "application/json" },
-		// 	body: {
-		// 		coin,
-		// 	},
-		// });
-		// .then((res) => res.json())
-		// .then((data) => console.log(data));
-	};
-
 	return (
 		<div
 			className="viewport"
@@ -70,25 +50,18 @@ function App() {
 									</>
 								) : null}
 							</h2>
-							<button onClick={HitBackend}>CLICK ME</button>
 						</div>
 						<div>
 							{showTrades ? (
-								<h1
-									className="StockerHeader"
-									// onClick={console.log(coinData)}
-								>
-									Stocker
-								</h1>
+								<>
+									<h1 className="StockerHeader">Stocker</h1>
+									<MainView />
+									<Logout
+										onSetShowLoginHandler={setShowLogin}
+										onSetShowTradesHandler={setShowTrades}
+									/>
+								</>
 							) : null}
-							{showTrades ? <WebSocketView /> : null}
-							{showTrades ? (
-								<Logout
-									onSetShowLoginHandler={setShowLogin}
-									onSetShowTradesHandler={setShowTrades}
-								/>
-							) : null}
-							{showTrades ? <SignatureBlock /> : null}
 						</div>
 					</div>
 					<div>
@@ -102,8 +75,3 @@ function App() {
 }
 
 export default App;
-
-// console.log(number);
-
-// // // // // //
-// Chart.defaults.global.options.scales;

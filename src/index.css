@@ -197,23 +197,25 @@ img.ethLogo {
 	top: -355px;
 	left: 600px;
 }
-/* .Footer {
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    background-image: linear-gradient(
-        to right,
-        #ffce00 50%,
-        #ffce00 50%,
-        #9a48fe
-    );
-    color: #000;
-    flex-shrink: 0;
-    position: relative;
-    margin-top: 500px;
-} */
+.Footer {
+	width: 250%;
+	height: 250%;
+	box-sizing: border-box;
+	display: -webkit-flex;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	background-image: linear-gradient(
+		to bottom,
+		#ffd276,
+		#e8ae68,
+		#a57f60,
+		#e3a587,
+		#db5a42
+	);
+	position: relative;
+	right: 700px;
+}
 
 .LogOut {
 	color: white;
@@ -271,7 +273,7 @@ img.ethLogo {
 	font-style: italic;
 	display: inline-flex;
 }
-
+/* 
 .signature {
 	width: 250%;
 	height: 250%;
@@ -290,4 +292,4 @@ img.ethLogo {
 	);
 	position: relative;
 	right: 700px;
-}
+} */

@@ -5,7 +5,7 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import { assertIsWebSocket } from "react-use-websocket/dist/lib/util";
 
 const BTCCard = (props) => {
-	const { btcItem, stopLiveTradesBtc } = props;
+	const { btcItem } = props;
 
 	return (
 		<>
@@ -54,6 +54,3 @@ const ETHCard = (props) => {
 
 export default BTCCard;
 export { ETHCard };
-{
-	/* export { WebSocket }; */
-}
