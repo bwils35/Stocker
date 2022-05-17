@@ -3,10 +3,11 @@ import "./index.css";
 import React, { useState, useEffect, Component, useRef } from "react";
 import LoginForm from "./Components/LoginForm";
 import Logout from "./Components/Logout";
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
-import WebSocketView from "./Views/WebSocketView";
-import SignatureBlock from "./Components/Signature";
+import { Header } from "./Components/Banners";
+import Footer from "./Components/Banners";
+import MainView from "./Views/MainView";
+import FormSignUp from "./Components/FormSignup";
+import axios from "axios";
 
 function App() {
 	// Sets the visibility of the Stocker ticker
@@ -20,7 +21,6 @@ function App() {
 		},
 		[showLogin]
 	);
-
 	return (
 		<div
 			className="viewport"
@@ -53,24 +53,20 @@ function App() {
 						</div>
 						<div>
 							{showTrades ? (
-								<h1
-									className="StockerHeader"
-									// onClick={console.log(coinData)}
-								>
-									Stocker
-								</h1>
+								<>
+									<h1 className="StockerHeader">Stocker</h1>
+									<MainView />
+									<Logout
+										onSetShowLoginHandler={setShowLogin}
+										onSetShowTradesHandler={setShowTrades}
+									/>
+								</>
 							) : null}
-							{showTrades ? <WebSocketView /> : null}
-							{showTrades ? (
-								<Logout
-									onSetShowLoginHandler={setShowLogin}
-									onSetShowTradesHandler={setShowTrades}
-								/>
-							) : null}
-							{showTrades ? <SignatureBlock /> : null}
 						</div>
 					</div>
-					<div>{/* <FormSignUp /> */}</div>
+					<div>
+						<FormSignUp />
+					</div>
 				</div>
 				<div className="col-md-3" />
 			</div>
@@ -79,8 +75,3 @@ function App() {
 }
 
 export default App;
-
-// console.log(number);
-
-// // // // // //
-// Chart.defaults.global.options.scales;

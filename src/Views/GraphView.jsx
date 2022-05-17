@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BarChart } from "../Components/BarChart";
+import { CoinCharts } from "../Components/CoinCharts";
 import WebSocket from "../Components/WebSocket";
 
 const GraphView = (props) => {
@@ -7,7 +7,7 @@ const GraphView = (props) => {
 
 	return (
 		<>
-			<BarChart chartData={chartData} ethData={ethData} />
+			<CoinCharts chartData={chartData} ethData={ethData} />
 		</>
 	);
 };

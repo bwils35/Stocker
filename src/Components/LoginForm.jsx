@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import FormSignup from "./FormSignup";
+import Localbase from "localbase";
+import { dblClick } from "@testing-library/user-event/dist/click";
 
 function LoginForm({ error, onSetShowLoginHandler, onSetShowTradesHandler }) {
+    let db = new Localbase("db");
     const [detail, setDetails] = useState({
         name: "",
         email: "",
@@ -17,20 +21,18 @@ function LoginForm({ error, onSetShowLoginHandler, onSetShowTradesHandler }) {
         onSetShowLoginHandler(false);
         onSetShowTradesHandler(true);
 
-
-        // if (
-        //     detail.email === adminUser.email &&
-        //     detail.password === adminUser.password
-        // ) {
-            // onSetShowLoginHandler(false);
-            // onSetShowTradesHandler(true);
-        // } else {
-        //     alert(
-        //         "You have entered incorrect login information, hint: admin@admin.com - admin1234"
-        //     );
-        // }
+        if (
+            detail.email === db.user.email &&
+            detail.password === db.user.password
+        ) {
+            onSetShowLoginHandler(false);
+            onSetShowTradesHandler(true);
+        } else {
+            alert(
+                "You have entered incorrect login information, hint: admin@admin.com - admin1234"
+            );
+        }
     };
-
 
     return (
         <form className="row" onSubmit={submithandler}>
