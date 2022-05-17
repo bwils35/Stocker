@@ -8,6 +8,7 @@ import Footer from "./Components/Footer";
 import WebSocketView from "./Views/WebSocketView";
 import SignatureBlock from "./Components/Signature";
 import FormSignUp from "./Components/FormSignup";
+import axios from "axios";
 
 function App() {
 	// Sets the visibility of the Stocker ticker
@@ -21,6 +22,24 @@ function App() {
 		},
 		[showLogin]
 	);
+
+	const HitBackend = () => {
+		let coin = { coinName: `Bitcoin` };
+		axios
+			.post(`http://localhost:3001/addBitcoin`, coin)
+			.then((res) => console.log(res))
+			.catch((err) => console.error(err));
+
+		// fetch(`http://localhost:3001`, {
+		// 	method: "POST",
+		// 	headers: { "Content-Type": "application/json" },
+		// 	body: {
+		// 		coin,
+		// 	},
+		// });
+		// .then((res) => res.json())
+		// .then((data) => console.log(data));
+	};
 
 	return (
 		<div
@@ -51,6 +70,7 @@ function App() {
 									</>
 								) : null}
 							</h2>
+							<button onClick={HitBackend}>CLICK ME</button>
 						</div>
 						<div>
 							{showTrades ? (
@@ -71,7 +91,9 @@ function App() {
 							{showTrades ? <SignatureBlock /> : null}
 						</div>
 					</div>
-					<div><FormSignUp /></div>
+					<div>
+						<FormSignUp />
+					</div>
 				</div>
 				<div className="col-md-3" />
 			</div>

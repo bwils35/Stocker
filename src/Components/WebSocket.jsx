@@ -5,6 +5,7 @@ import websocket from "websocket";
 import RemoveBTC from "./RemoveButton";
 import { RemoveETH } from "./RemoveButton";
 import TickerView from "../Views/TickerView";
+import axios from "axios";
 
 const WebSocket = (props) => {
 	const socketUrl = "wss://ws.bitstamp.net";
@@ -14,6 +15,8 @@ const WebSocket = (props) => {
 		setCoinDataHandler,
 		// setETHDataHandler,
 		btcItem,
+		ondbDataHandler,
+		ondbEthDataHandler,
 		// ethItem,
 	} = props;
 	var x = new Date();
@@ -30,11 +33,30 @@ const WebSocket = (props) => {
 	useEffect(() => {
 		if (lastMessage !== null) {
 			setbtcStockListHandler(JSON.parse(lastMessage.data));
-			// setEthStockListHandler(JSON.parse(lastMessage.data));
 			setCoinDataHandler(btc, JSON.parse(lastMessage.data).data);
-			// setETHDataHandler(eth, JSON.parse(lastMessage.data).data);
 			setBtc(currentDTG);
-			// setEth(currentDTG);
+			console.log(JSON.parse(lastMessage.data));
+			//
+			if (
+				Object.keys(JSON.parse(lastMessage.data).data).length &&
+				JSON.parse(lastMessage.data).channel === "live_trades_btcusd"
+			) {
+				let bitcoin = JSON.parse(lastMessage.data).data;
+				let coinSetup = {
+					amount: bitcoin.amount,
+					price: bitcoin.price,
+					timestamp: bitcoin.timestamp,
+				};
+				axios
+					.post(`http://localhost:3001/addBitcoin`, coinSetup)
+					.then((res) => console.log(res))
+					.catch((err) => console.error(err));
+			}
+
+			axios
+				.get(`http://localhost:3001/getAllBitcoin`)
+				.then((res) => ondbDataHandler(res.data))
+				.catch((err) => console.error(err));
 		}
 	}, [lastMessage]);
 	//JSON Message sent to API for Btc to USD
@@ -114,6 +136,25 @@ const ETHWebSocket = (props) => {
 			setEthStockListHandler(JSON.parse(lastMessage.data));
 			setETHDataHandler(eth, JSON.parse(lastMessage.data).data);
 			setEth(currentDTG);
+			if (
+				Object.keys(JSON.parse(lastMessage.data).data).length &&
+				JSON.parse(lastMessage.data).channel === "live_trades_ethusd"
+			) {
+				let ethereum = JSON.parse(lastMessage.data).data;
+				let coinSetup = {
+					amount: ethereum.amount,
+					price: ethereum.price,
+					timestamp: ethereum.timestamp,
+				};
+				axios
+					.post(`http://localhost:3001/addEthereum`, coinSetup)
+					.then((res) => console.log(res))
+					.catch((err) => console.error(err));
+			}
+			axios
+				.get(`http://localhost:3001/getAllEthereum`)
+				.then((res) => console.log(res.data))
+				.catch((err) => console.error(err));
 		}
 	}, [lastMessage]);
 	//JSON Message sent to API for Eth to USD
