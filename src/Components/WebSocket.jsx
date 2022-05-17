@@ -14,14 +14,14 @@ const WebSocket = (props) => {
 	var currentDTG = `${hour}:${minute}:${second}`;
 
 	// LCSV that sets the x-axis chart labels with local time.
-	const [btc, setBtc] = useState(currentDTG);
+	const [xAxisLabel, setxAxisLabel] = useState(currentDTG);
 
 	const { sendMessage, lastMessage } = useWebSocket(socketUrl);
 	useEffect(() => {
 		if (lastMessage !== null) {
 			// setbtcStockListHandler(JSON.parse(lastMessage.data));
-			setCoinDataHandler(btc, JSON.parse(lastMessage.data).data); //Local time is passed with JSON parse to Chart
-			setBtc(currentDTG);
+			setCoinDataHandler(xAxisLabel, JSON.parse(lastMessage.data)); //Local time is passed with JSON parse to Chart
+			setxAxisLabel(currentDTG);
 			// console.log(JSON.parse(lastMessage.data));
 			//
 			if (
@@ -123,13 +123,13 @@ const ETHWebSocket = (props) => {
 	var second = x.getSeconds();
 	var currentDTG = `${hour}:${minute}:${second}`;
 
-	const [eth, setEth] = useState(currentDTG);
+	const [xAxisLabel, setxAxisLabel] = useState(currentDTG);
 
 	const { sendMessage, lastMessage } = useWebSocket(socketUrl);
 	useEffect(() => {
 		if (lastMessage !== null) {
-			setETHDataHandler(eth, JSON.parse(lastMessage.data).data);
-			setEth(currentDTG);
+			setETHDataHandler(xAxisLabel, JSON.parse(lastMessage.data).data);
+			setxAxisLabel(currentDTG);
 			if (
 				Object.keys(JSON.parse(lastMessage.data).data).length &&
 				JSON.parse(lastMessage.data).channel === "live_trades_ethusd"
