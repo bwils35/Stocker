@@ -7,6 +7,7 @@ import Header from "../Components/Banners";
 import LoginForm from "../Components/LoginForm";
 import Logout from "../Components/Logout";
 import Registration from "../Components/Registration";
+import { useNavigate } from "react-router-dom";
 
 const MainView = () => {
 	/* Opens and closes pages by setting values to true/false */
@@ -99,10 +100,12 @@ const MainView = () => {
 			});
 		}
 	};
+
+	let navigate = useNavigate();
 	return (
 		<>
 			<div className="mainView">
-				{showLogin && (
+				{/* {showLogin && (
 					<>
 						<header>
 							<Header />
@@ -116,34 +119,31 @@ const MainView = () => {
 							<Footer className="" />
 						</footer>
 					</>
-				)}
+				)} */}
 
-				{showTrades && (
-					<>
-						<WebSocket
-							setCoinDataHandler={onSetCoinData}
-							btcItem={btcStockList}
-							ondbDataHandler={dbDataHandler}
-						/>
-						<ETHWebSocket
-							setETHDataHandler={onSetEthCoinData}
-							ethItem={ethStockList}
-							ondbEthDataHandler={dbEthDataHandler}
-						/>
-						<BTCCard btcItem={btcStockList} />
-						<ETHCard ethItem={ethStockList} />
-						<CoinCharts
-							chartData={coinData}
-							ethData={EthcoinData}
-						/>
-						<Registration />
-						<Footer />
-						<Logout
-							onSetShowLoginHandler={setShowLogin}
-							onSetShowTradesHandler={setShowTrades}
-						/>
-					</>
-				)}
+				<>
+					<WebSocket
+						setCoinDataHandler={onSetCoinData}
+						btcItem={btcStockList}
+						ondbDataHandler={dbDataHandler}
+					/>
+					<ETHWebSocket
+						setETHDataHandler={onSetEthCoinData}
+						ethItem={ethStockList}
+						ondbEthDataHandler={dbEthDataHandler}
+					/>
+					<BTCCard btcItem={btcStockList} />
+					<ETHCard ethItem={ethStockList} />
+					<CoinCharts chartData={coinData} ethData={EthcoinData} />
+					{/* <Registration /> */}
+					<Logout
+						// onSetShowLoginHandler={setShowLogin}
+						// onSetShowTradesHandler={setShowTrades}
+						onClick={() => {
+							navigate("/");
+						}}
+					/>
+				</>
 			</div>
 		</>
 	);
