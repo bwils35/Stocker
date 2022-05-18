@@ -6,19 +6,17 @@ import { CoinCharts } from "../Components/CoinCharts";
 import Header from "../Components/Banners";
 import LoginForm from "../Components/LoginForm";
 import Logout from "../Components/Logout";
+import Registration from "../Components/Registration";
 
 const MainView = () => {
 	/* Opens and closes pages by setting values to true/false */
 	const [showLogin, setShowLogin] = useState(true);
-	const [showTrades, setShowTrades] = useState(
-		(e) => {
-			if (setShowLogin === false) {
-				e.preventDefault();
-				setShowTrades(true);
-			}
-		},
-		[showLogin]
-	);
+	const [showTrades, setShowTrades] = useState((e) => {
+		if (setShowLogin === false) {
+			e.preventDefault();
+			setShowTrades(true);
+		}
+	});
 
 	/* Local Component State Variables used to set various values */
 	const [btcStockList, setbtcStockList] = useState([]); // sets value displayed on BTCCard based on live values being stored in the database
@@ -104,7 +102,7 @@ const MainView = () => {
 	return (
 		<>
 			<div className="mainView">
-				{showLogin ? (
+				{showLogin && (
 					<>
 						<header>
 							<Header />
@@ -113,13 +111,14 @@ const MainView = () => {
 							onSetShowLoginHandler={setShowLogin}
 							onSetShowTradesHandler={setShowTrades}
 						/>
+						<Registration />
 						<footer>
 							<Footer className="" />
 						</footer>
 					</>
-				) : null}
+				)}
 
-				{showTrades ? (
+				{showTrades && (
 					<>
 						<WebSocket
 							setCoinDataHandler={onSetCoinData}
@@ -137,13 +136,14 @@ const MainView = () => {
 							chartData={coinData}
 							ethData={EthcoinData}
 						/>
+						<Registration />
 						<Footer />
 						<Logout
 							onSetShowLoginHandler={setShowLogin}
 							onSetShowTradesHandler={setShowTrades}
 						/>
 					</>
-				) : null}
+				)}
 			</div>
 		</>
 	);

@@ -2,8 +2,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import React from "react";
 import MainView from "./Views/MainView";
-import FormSignUp from "./Components/FormSignup";
-
 function App() {
 	return (
 		<div
@@ -17,7 +15,6 @@ function App() {
 					<div className="App">
 						<div mx-5 className="App">
 							<MainView />
-							<FormSignUp />
 						</div>
 					</div>
 				</div>
