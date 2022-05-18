@@ -1,26 +1,63 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import React from "react";
-import MainView from "./Views/MainView";
+import MainView from "./Pages/MainView";
+import Registration from "./Components/Registration";
+import Footer, { Header } from "./Components/Banners";
+import LoginForm from "./Components/LoginForm";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
 function App() {
 	return (
-		<div
-			className="viewport"
-			content="width=device-width"
-			initial-scale="1"
-		>
-			<div className="row">
-				<div className="col-md-3" />
-				<div className="col-md-6">
-					<div className="App">
-						<div mx-5 className="App">
-							<MainView />
+		<Router>
+			<div
+				className="viewport"
+				content="width=device-width"
+				initial-scale="1"
+			>
+				<div className="row">
+					<div className="col-md-3" />
+					<div className="col-md-6">
+						<div className="App">
+							<div mx-5 className="App">
+								<nav className="navBar ">
+									<Link className="Link" to="/">
+										Home
+									</Link>
+									<h2>Welcome to STOCKER</h2>
+									{/* TODO: add about and contact pages */}
+								</nav>
+								{/* <header>
+									<Header />
+								</header> */}
+								<Routes>
+									<Route path="/" element={<LoginForm />} />
+									<Route
+										path="/Main"
+										element={<MainView />}
+									/>
+									<Route
+										path="/Registration"
+										element={<Registration />}
+									/>
+
+									{/* create a route to an error page */}
+								</Routes>
+								<footer>
+									<Footer className="" />
+								</footer>
+							</div>
 						</div>
 					</div>
+					<div className="col-md-3" />
 				</div>
-				<div className="col-md-3" />
 			</div>
-		</div>
+		</Router>
+		// <Router>
+		// 	<Routes>
+		// 		<Route />
+		// 	</Routes>
+		// </Router>
 	);
 }
 
