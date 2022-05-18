@@ -1,84 +1,78 @@
 import React, { useState } from "react";
 import FormSignup from "./FormSignup";
-import Localbase from "localbase";
-import { dblClick } from "@testing-library/user-event/dist/click";
 
 function LoginForm({ error, onSetShowLoginHandler, onSetShowTradesHandler }) {
-    let db = new Localbase("db");
-    const [detail, setDetails] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
+	const [detail, setDetails] = useState({
+		name: "",
+		email: "",
+		password: "",
+	});
 
-    const adminUser = {
-        email: "admin@admin.com",
-        password: "admin1234",
-    };
+	const adminUser = {
+		email: "admin@admin.com",
+		password: "admin1234",
+	};
 
-    const submithandler = (e) => {
-        e.preventDefault();
-        onSetShowLoginHandler(false);
-        onSetShowTradesHandler(true);
+	const submithandler = (e) => {
+		e.preventDefault();
+		onSetShowLoginHandler(false);
+		onSetShowTradesHandler(true);
 
-        if (
-            detail.email === db.user.email &&
-            detail.password === db.user.password
-        ) {
-            onSetShowLoginHandler(false);
-            onSetShowTradesHandler(true);
-        } else {
-            alert(
-                "You have entered incorrect login information, hint: admin@admin.com - admin1234"
-            );
-        }
-    };
+		// 	if (detail.email === user.email && detail.password === user.password) {
+		// 		onSetShowLoginHandler(false);
+		// 		onSetShowTradesHandler(true);
+		// 	} else {
+		// 		alert(
+		// 			"You have entered incorrect login information, hint: admin@admin.com - admin1234"
+		// 		);
+		// 	}
+	};
 
-    return (
-        <form className="row" onSubmit={submithandler}>
-            <div className="form-inner">
-                <h2>Login</h2>
-                {error != "" ? <div className="error">{error}</div> : ""}
-                <div className="form-group">
-                    <label htmlFor="name">Name: </label>
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        onChange={(e) =>
-                            setDetails({ ...detail, name: e.target.value })
-                        }
-                        value={detail.name}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email: </label>
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        onChange={(e) =>
-                            setDetails({ ...detail, email: e.target.value })
-                        }
-                        value={detail.email}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">password: </label>
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        onChange={(e) =>
-                            setDetails({ ...detail, password: e.target.value })
-                        }
-                        value={detail.password}
-                    />
-                </div>
-                <input type="submit" value="LOGIN"></input>
-            </div>
-        </form>
-    );
+	return (
+		<form className="row" onSubmit={submithandler}>
+			<div className="form-inner">
+				<h2>Login</h2>
+				{error != "" ? <div className="error">{error}</div> : ""}
+				<div className="form-group">
+					<label htmlFor="name">Name: </label>
+					<input
+						type="text"
+						name="name"
+						id="name"
+						onChange={(e) =>
+							setDetails({ ...detail, name: e.target.value })
+						}
+						value={detail.name}
+					/>
+				</div>
+				<div className="form-group">
+					<label htmlFor="email">Email: </label>
+					<input
+						type="email"
+						name="email"
+						id="email"
+						onChange={(e) =>
+							setDetails({ ...detail, email: e.target.value })
+						}
+						value={detail.email}
+					/>
+				</div>
+				<div className="form-group">
+					<label htmlFor="password">password: </label>
+					<input
+						type="password"
+						name="password"
+						id="password"
+						onChange={(e) =>
+							setDetails({ ...detail, password: e.target.value })
+						}
+						value={detail.password}
+					/>
+				</div>
+				<input type="submit" value="LOGIN"></input>
+			</div>
+		</form>
+	);
 }
 
 export default LoginForm;
