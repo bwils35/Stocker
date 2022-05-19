@@ -3,7 +3,7 @@ import "./index.css";
 import React from "react";
 import MainView from "./Pages/MainView";
 import Registration from "./Components/Registration";
-import Footer, { Header } from "./Components/Banners";
+import Footer from "./Components/Banners";
 import LoginForm from "./Components/LoginForm";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -27,9 +27,6 @@ function App() {
 									<h2>Welcome to STOCKER</h2>
 									{/* TODO: add about and contact pages */}
 								</nav>
-								{/* <header>
-									<Header />
-								</header> */}
 								<Routes>
 									<Route path="/" element={<LoginForm />} />
 									<Route
@@ -40,8 +37,7 @@ function App() {
 										path="/Registration"
 										element={<Registration />}
 									/>
-
-									{/* create a route to an error page */}
+									{/* TODO: create a route to an error page */}
 								</Routes>
 								<footer>
 									<Footer className="" />
@@ -53,11 +49,6 @@ function App() {
 				</div>
 			</div>
 		</Router>
-		// <Router>
-		// 	<Routes>
-		// 		<Route />
-		// 	</Routes>
-		// </Router>
 	);
 }
 
