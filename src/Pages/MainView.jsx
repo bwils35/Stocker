@@ -8,17 +8,10 @@ import LoginForm from "../Components/LoginForm";
 import Logout from "../Components/Logout";
 import Registration from "../Components/Registration";
 import { useNavigate } from "react-router-dom";
+import { AppContainer, Page } from "../Styles/Container.style";
+import { CoinButton } from "../Styles/Button.style";
 
 const MainView = () => {
-	/* Opens and closes pages by setting values to true/false */
-	const [showLogin, setShowLogin] = useState(true);
-	const [showTrades, setShowTrades] = useState((e) => {
-		if (setShowLogin === false) {
-			e.preventDefault();
-			setShowTrades(true);
-		}
-	});
-
 	/* Local Component State Variables used to set various values */
 	const [btcStockList, setbtcStockList] = useState([]); // sets value displayed on BTCCard based on live values being stored in the database
 	const [btcData, setBtcData] = useState([]); // sets the data in a format ready for chartjs based on live values being stored in the database
@@ -104,23 +97,7 @@ const MainView = () => {
 	let navigate = useNavigate();
 	return (
 		<>
-			<div className="mainView">
-				{/* {showLogin && (
-					<>
-						<header>
-							<Header />
-						</header>
-						<LoginForm
-							onSetShowLoginHandler={setShowLogin}
-							onSetShowTradesHandler={setShowTrades}
-						/>
-						<Registration />
-						<footer>
-							<Footer className="" />
-						</footer>
-					</>
-				)} */}
-
+			<AppContainer className="mainView">
 				<>
 					<WebSocket
 						setCoinDataHandler={onSetCoinData}
@@ -135,16 +112,13 @@ const MainView = () => {
 					<BTCCard btcItem={btcStockList} />
 					<ETHCard ethItem={ethStockList} />
 					<CoinCharts chartData={coinData} ethData={EthcoinData} />
-					{/* <Registration /> */}
 					<Logout
-						// onSetShowLoginHandler={setShowLogin}
-						// onSetShowTradesHandler={setShowTrades}
 						onClick={() => {
 							navigate("/");
 						}}
 					/>
 				</>
-			</div>
+			</AppContainer>
 		</>
 	);
 };

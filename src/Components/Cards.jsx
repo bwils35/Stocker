@@ -3,12 +3,14 @@ import bitcoinLogo from "../Img/Bitcoin_logo2.png";
 import ethereumLogo from "../Img/ethereum_logo.png";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { assertIsWebSocket } from "react-use-websocket/dist/lib/util";
+import { StyledBTCCard, StyledETHCard } from "../Styles/MainPage.style";
 
 const BTCCard = (props) => {
 	const { btcItem } = props;
 
 	return (
 		<>
+			{/* <StyledBTCCard> */}
 			<div class="BTCCard">
 				<div className="card border border-dark mt-2">
 					<div className="card-body pb-1">
@@ -24,6 +26,7 @@ const BTCCard = (props) => {
 					</div>
 				</div>
 			</div>
+			{/* </StyledBTCCard> */}
 		</>
 	);
 };

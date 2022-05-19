@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AppContainer, Page } from "../Styles/Container.style";
+import { SubmitButton } from "../Styles/Button.style";
 
 function LoginForm() {
 	const [userName, setUsername] = useState("");
@@ -29,69 +31,64 @@ function LoginForm() {
 			.catch((err) => console.log(err));
 	};
 
-	// 	if (detail.email === user.email && detail.password === user.password) {
-	// 		onSetShowLoginHandler(false);
-	// 		onSetShowTradesHandler(true);
-	// 	} else {
-	// 		alert(
-	// 			"You have entered incorrect login information, hint: admin@admin.com - admin1234"
-	// 		);
-	// 	}
-
 	let navigate = useNavigate();
 
 	return (
 		<>
-			{/* <form className="row"> */}
-			<div className="form-inner">
-				<h2>Login</h2>
-				<div className="form-group">
-					<label htmlFor="name">Username: </label>
-					<input
-						type="text"
-						name="name"
-						id="name"
-						onChange={(e) => {
-							setUsername(e.target.value);
+			<Page className="form-inner">
+				{/* <form className="row"> */}
+				<div>
+					<h2 align="center">Login</h2>
+					<div>
+						<label>Username: </label>
+						<input
+							type="text"
+							name="name"
+							id="name"
+							onChange={(e) => {
+								setUsername(e.target.value);
+							}}
+						/>
+					</div>
+					<div>
+						<label>Email: </label>
+						<input
+							type="email"
+							name="email"
+							id="email"
+							onChange={(e) => {
+								setEmail(e.target.value);
+							}}
+						/>
+					</div>
+					<div>
+						<label>Password: </label>
+						<input
+							type="password"
+							name="password"
+							id="password"
+							onChange={(e) => {
+								setPassword(e.target.value);
+							}}
+						/>
+					</div>
+					<SubmitButton type="submit" value="LOGIN" onClick={Login}>
+						LOGIN
+					</SubmitButton>
+					{/*  */}
+					<SubmitButton
+						type="submit"
+						onClick={() => {
+							navigate("/Registration");
 						}}
-					/>
+						value="REGISTER"
+					>
+						Registration
+					</SubmitButton>
+					<p>{loginStatus}</p>
 				</div>
-				<div className="form-group">
-					<label htmlFor="email">Email: </label>
-					<input
-						type="email"
-						name="email"
-						id="email"
-						onChange={(e) => {
-							setEmail(e.target.value);
-						}}
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="password">Password: </label>
-					<input
-						type="password"
-						name="password"
-						id="password"
-						onChange={(e) => {
-							setPassword(e.target.value);
-						}}
-					/>
-				</div>
-				<button type="submit" value="LOGIN" onClick={Login}>
-					LOGIN
-				</button>
-				<input
-					className="mx-3"
-					type="submit"
-					onClick={() => {
-						navigate("/Registration");
-					}}
-					value="REGISTER"
-				/>
-				<p>{loginStatus}</p>
-			</div>
-			{/* </form> */}
+				{/* </form> */}
+			</Page>
 		</>
 	);
 }

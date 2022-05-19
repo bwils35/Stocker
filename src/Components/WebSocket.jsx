@@ -3,6 +3,7 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import { assertIsWebSocket } from "react-use-websocket/dist/lib/util";
 import websocket from "websocket";
 import axios from "axios";
+import { CoinButton } from "../Styles/Button.style";
 
 const WebSocket = (props) => {
 	const socketUrl = "wss://ws.bitstamp.net";
@@ -82,16 +83,15 @@ const WebSocket = (props) => {
 							aria-label="First group"
 						/>
 						<div className="startBTCTrades">
-							<button
+							<CoinButton
 								button
 								type="button"
-								// class="btn btn-dark btn-md btn-block d-inline-block ml-1"
 								onClick={() => {
 									startLiveTradesBtc();
 								}}
 							>
 								Show Bitcoin
-							</button>
+							</CoinButton>
 							<button
 								class="deletestock"
 								className="border border-dark btn btn-danger btn-md mt-1 m-2"
@@ -100,9 +100,6 @@ const WebSocket = (props) => {
 							>
 								Remove BTC
 							</button>
-							{/* <RemoveBTC
-								stopLiveTradesBtcHandler={stopLiveTradesBtc}
-							/> */}
 						</div>
 					</div>
 					<div className="col-6" />
@@ -189,7 +186,6 @@ const ETHWebSocket = (props) => {
 						<div className="startETHTrades">
 							<button
 								type="button"
-								// class="btn btn-primary btn-outline btn-md btn-block d-inline-block ml-1"
 								onClick={() => {
 									startLiveTradesEth();
 								}}
@@ -204,9 +200,6 @@ const ETHWebSocket = (props) => {
 							>
 								Remove ETH
 							</button>
-							{/* <RemoveETH
-								stopLiveTradesEthHandler={stopLiveTradesEth}
-							/> */}
 						</div>
 					</div>
 					<div className="col-6" />
