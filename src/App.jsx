@@ -5,50 +5,37 @@ import MainView from "./Pages/MainView";
 import Registration from "./Components/Registration";
 import Footer from "./Components/Banners";
 import LoginForm from "./Components/LoginForm";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { GlobalStyles } from "./Styles/GlobalStyles.style";
+import { AppContainer } from "./Styles/Container.style";
+import AboutPage from "./Pages/About";
+import Contact from "./Pages/Contact";
+import Navbar from "./Components/Navbar";
 
 function App() {
 	return (
-		<Router>
-			<div
-				className="viewport"
-				content="width=device-width"
-				initial-scale="1"
-			>
-				<div className="row">
-					<div className="col-md-3" />
-					<div className="col-md-6">
-						<div className="App">
-							<div mx-5 className="App">
-								<nav className="navBar ">
-									<Link className="Link" to="/">
-										Home
-									</Link>
-									<h2>Welcome to STOCKER</h2>
-									{/* TODO: add about and contact pages */}
-								</nav>
-								<Routes>
-									<Route path="/" element={<LoginForm />} />
-									<Route
-										path="/Main"
-										element={<MainView />}
-									/>
-									<Route
-										path="/Registration"
-										element={<Registration />}
-									/>
-									{/* TODO: create a route to an error page */}
-								</Routes>
-								<footer>
-									<Footer className="" />
-								</footer>
-							</div>
-						</div>
-					</div>
-					<div className="col-md-3" />
-				</div>
-			</div>
-		</Router>
+		<>
+			<GlobalStyles />
+			<Router>
+				<AppContainer>
+					<Navbar />
+					<Routes>
+						<Route path="/" element={<LoginForm />} />
+						<Route path="/About" element={<AboutPage />} />
+						<Route path="/Contact" element={<Contact />} />
+						<Route path="/Main" element={<MainView />} />
+						<Route
+							path="/Registration"
+							element={<Registration />}
+						/>
+						{/* TODO: create a route to an error page */}
+					</Routes>
+					{/* <footer>
+					<Footer className="" />
+				</footer> */}
+				</AppContainer>
+			</Router>
+		</>
 	);
 }
 

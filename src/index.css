@@ -1,9 +1,8 @@
-* {
+/* * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	font-family: montserrat, sans-serif;
-	/* background-color: #e3a587; */
 }
 
 input,
@@ -162,9 +161,6 @@ img.ethLogo {
 	max-height: 25px;
 }
 
-/* .cards .ETHCard {
-    float: right;
-} */
 .mainView {
 	position: relative;
 }
@@ -260,19 +256,8 @@ img.ethLogo {
 	position: relative;
 	left: 390px;
 	bottom: 82px;
-	/* background-color: transparent; */
 }
 
-.designers {
-	font-style: italic;
-	/* text-decoration: ; */
-}
-
-.toUnderline {
-	text-decoration: underline;
-	font-style: italic;
-	display: inline-flex;
-}
 
 nav {
 	height: 50px;
@@ -339,4 +324,14 @@ nav h2 {
 		linear-gradient(127deg, #ffce00, rgba(0, 255, 0, 0) 70.71%),
 		linear-gradient(336deg, #a823c69f, rgba(187, 60, 198, 0) 70.71%);
 	box-shadow: 0 4px 2px 2px rgba(9, 9, 9, 0.23);
+} */
+
+img.ethLogo {
+	max-width: 50px;
+	max-height: 25px;
+}
+
+img.btcLogo {
+	max-width: 150px;
+	max-height: 25px;
 }
