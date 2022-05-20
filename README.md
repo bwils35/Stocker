@@ -1,4 +1,5 @@
-# Getting Started with Create React App
+# Stocker!
+# Designed/Developed by Bradley and Dalton
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
