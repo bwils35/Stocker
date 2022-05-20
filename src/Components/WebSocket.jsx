@@ -4,6 +4,7 @@ import { assertIsWebSocket } from "react-use-websocket/dist/lib/util";
 import websocket from "websocket";
 import axios from "axios";
 import { CoinButton } from "../Styles/Button.style";
+import { CoinButtonContainer } from "../Styles/Container.style";
 
 const WebSocket = (props) => {
 	const socketUrl = "wss://ws.bitstamp.net";
@@ -69,42 +70,42 @@ const WebSocket = (props) => {
 
 	return (
 		<>
-			<div className="row">
+			{/* <div className="row">
 				<div className="col-4" />
-				<div className="col-6 mt-3">
-					<div
-						class="btn-toolbar mb-3"
-						role="toolbar"
-						aria-label="Toolbar with button groups"
-					>
-						<div
-							class="btn-group mr-2"
-							role="group"
-							aria-label="First group"
-						/>
-						<div className="startBTCTrades">
-							<CoinButton
-								button
-								type="button"
-								onClick={() => {
-									startLiveTradesBtc();
-								}}
-							>
-								Show Bitcoin
-							</CoinButton>
-							<button
-								class="deletestock"
-								className="border border-dark btn btn-danger btn-md mt-1 m-2"
-								type="button"
-								onClick={stopLiveTradesBtc}
-							>
-								Remove BTC
-							</button>
-						</div>
-					</div>
+				<div className="col-6 mt-3"> */}
+			<CoinButtonContainer className="startBTCTrades">
+				{/* <div
+					class="btn-toolbar mb-3"
+					role="toolbar"
+					aria-label="Toolbar with button groups"
+				> */}
+				{/* <div
+						class="btn-group mr-2"
+						role="group"
+						aria-label="First group"
+					/> */}
+				<CoinButton
+					button
+					type="button"
+					onClick={() => {
+						startLiveTradesBtc();
+					}}
+				>
+					Show Bitcoin
+				</CoinButton>
+				<button
+					class="deletestock"
+					className="border border-dark btn btn-danger btn-md mt-1 m-2"
+					type="button"
+					onClick={stopLiveTradesBtc}
+				>
+					Remove BTC
+				</button>
+				{/* </div>
 					<div className="col-6" />
-				</div>
-			</div>
+				</div> */}
+				{/* </div> */}
+			</CoinButtonContainer>
 		</>
 	);
 };
@@ -149,7 +150,7 @@ const ETHWebSocket = (props) => {
 		}
 	}, [lastMessage]);
 	//JSON Message sent to API for Eth to USD
-	const startLiveTradesEth = (e) => {
+	const startLiveTradesEth = () => {
 		const apiCall = {
 			event: "bts:subscribe",
 			data: {
@@ -167,44 +168,50 @@ const ETHWebSocket = (props) => {
 		};
 		sendMessage(JSON.stringify(apiCall));
 	};
+	const [websocketStatus, setWebsocketStatus] = useState(false);
+
+	const ethTrades = () => {
+		if (websocketStatus) {
+			stopLiveTradesEth();
+		} else {
+			startLiveTradesEth();
+			// setWebsocketStatus(true);
+		}
+	};
 
 	return (
 		<>
-			<div className="row">
+			<CoinButtonContainer>
+				{/* <div className="row">
 				<div className="col-4" />
-				<div className="col-6 mt-3">
-					<div
-						class="btn-toolbar mb-3"
-						role="toolbar"
-						aria-label="Toolbar with button groups"
-					>
-						<div
-							class="btn-group mr-2"
-							role="group"
-							aria-label="First group"
-						/>
-						<div className="startETHTrades">
-							<button
-								type="button"
-								onClick={() => {
-									startLiveTradesEth();
-								}}
-							>
-								Show Ethereum
-							</button>
-							<button
-								class="deletestock"
-								className="border border-dark btn btn-danger btn-md mt-1 m-2"
-								type="button"
-								onClick={stopLiveTradesEth}
-							>
-								Remove ETH
-							</button>
-						</div>
-					</div>
+				<div className="col-6 mt-3"> */}
+				{/* <div
+				class="btn-toolbar mb-3"
+				role="toolbar"
+				aria-label="Toolbar with button groups"
+			>
+				<div
+					class="btn-group mr-2"
+					role="group"
+					aria-label="First group"
+				/>
+				<div className="startETHTrades"> */}
+				<CoinButton
+					onClick={() => {
+						websocketStatus
+							? setWebsocketStatus(false)
+							: setWebsocketStatus(true);
+					}}
+				>
+					Start Ethereum
+				</CoinButton>
+				<CoinButton onClick={stopLiveTradesEth}>Remove ETH</CoinButton>
+				{/* </div>
+				{/* </div>
 					<div className="col-6" />
-				</div>
-			</div>
+				</div> */}
+				{/* </div> */}
+			</CoinButtonContainer>
 		</>
 	);
 };

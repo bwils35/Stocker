@@ -3,7 +3,7 @@ import bitcoinLogo from "../Img/Bitcoin_logo2.png";
 import ethereumLogo from "../Img/ethereum_logo.png";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { assertIsWebSocket } from "react-use-websocket/dist/lib/util";
-import { StyledBTCCard, StyledETHCard } from "../Styles/MainPage.style";
+import { CoinCardContainer } from "../Styles/Container.style";
 
 const BTCCard = (props) => {
 	const { btcItem } = props;
@@ -11,7 +11,7 @@ const BTCCard = (props) => {
 	return (
 		<>
 			{/* <StyledBTCCard> */}
-			<div class="BTCCard">
+			<CoinCardContainer class="BTCCard">
 				<div className="card border border-dark mt-2">
 					<div className="card-body pb-1">
 						<h4 className="card-header color-">
@@ -21,11 +21,11 @@ const BTCCard = (props) => {
 								className="btcLogo"
 							/>
 						</h4>
-						<h6 className="card-body">Most Recent BTC Trade</h6>
+						{/* <h6 className="card-body">Most Recent BTC Trade</h6> */}
 						<p className="card-text">${btcItem}</p>
 					</div>
 				</div>
-			</div>
+			</CoinCardContainer>
 			{/* </StyledBTCCard> */}
 		</>
 	);
@@ -35,22 +35,22 @@ const ETHCard = (props) => {
 	const { ethItem } = props;
 	return (
 		<>
-			<div class="ETHCard">
+			<CoinCardContainer class="ETHCard">
 				<div className="card border border-dark mt-2">
 					<div className="card-body pb-1">
 						<h4 className="card-header color-">
 							<img
 								src={ethereumLogo}
 								alt="Ethereum Logo"
-								className="ethLogo"
+								class="ethLogo"
 							/>
-							Ethereum{" "}
+							{"Ethereum "}
 						</h4>
-						<h6 className="card-body">Most Recent ETH Trade</h6>
-						<p className="card-text">${ethItem}</p>
+						{/* <h6 className="card-body">Most Recent ETH Trade</h6> */}
+						<p className="card-text">${ethItem}</p>{" "}
 					</div>
 				</div>
-			</div>
+			</CoinCardContainer>
 		</>
 	);
 };

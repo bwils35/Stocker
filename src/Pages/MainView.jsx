@@ -97,26 +97,26 @@ const MainView = () => {
 	let navigate = useNavigate();
 	return (
 		<>
-			<AppContainer className="mainView">
+			<AppContainer>
 				<>
-					<WebSocket
-						setCoinDataHandler={onSetCoinData}
-						btcItem={btcStockList}
-						ondbDataHandler={dbDataHandler}
-					/>
-					<ETHWebSocket
-						setETHDataHandler={onSetEthCoinData}
-						ethItem={ethStockList}
-						ondbEthDataHandler={dbEthDataHandler}
-					/>
-					<BTCCard btcItem={btcStockList} />
-					<ETHCard ethItem={ethStockList} />
-					<CoinCharts chartData={coinData} ethData={EthcoinData} />
 					<Logout
 						onClick={() => {
 							navigate("/");
 						}}
 					/>
+					<WebSocket
+						setCoinDataHandler={onSetCoinData}
+						btcItem={btcStockList}
+						ondbDataHandler={dbDataHandler}
+					/>
+					<BTCCard btcItem={btcStockList} />
+					<ETHWebSocket
+						setETHDataHandler={onSetEthCoinData}
+						ethItem={ethStockList}
+						ondbEthDataHandler={dbEthDataHandler}
+					/>
+					<ETHCard ethItem={ethStockList} />
+					<CoinCharts chartData={coinData} ethData={EthcoinData} />
 				</>
 			</AppContainer>
 		</>

@@ -17,6 +17,46 @@ export const AppContainer = styled.div`
 
 	border: 1px solid black;
 `;
+export const LogoutButtonContainer = styled.div`
+	font-size: 1rem;
+	font-weight: 500;
+	z-index: index 2;
+	margin-bottom: 5px;
+	display: flex;
+	flex-direction: row-reverse;
+`;
+export const CoinCardContainer = styled.div`
+	display: inline-flex;
+	width: 20%;
+	height: auto;
+	border: 1px solid black;
+	border-radius: 8px;
+	background-color: grey;
+	margin: 10px;
+
+	& img .ethlogo {
+		max-width: 30px; // ${`(props) => { props.whatever ? } `}
+		max-height: 50px;
+	}
+	& img {
+		max-width: 100px; // ${`(props) => { props.whatever ? } `}
+		max-height: 50px;
+	}
+`;
+
+export const CoinButtonContainer = styled.div`
+	border: 1px solid #000;
+	background-color: #183de4;
+	color: #fff;
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0px 0px 2px 2px rgb(0, 0, 0);
+	width: 10%;
+	height: auto;
+	/* position: relative; */
+	/* right: 195px; */
+	/* top: 0px; */
+`;
 
 export const Page = styled.div`
 	width: 100vw;
