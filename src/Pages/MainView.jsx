@@ -8,7 +8,15 @@ import LoginForm from "../Components/LoginForm";
 import Logout from "../Components/Logout";
 import Registration from "../Components/Registration";
 import { useNavigate } from "react-router-dom";
-import { AppContainer, Page } from "../Styles/Container.style";
+import {
+	AppContainer,
+	InlineContainer,
+	Page,
+	ProfileContainer,
+	CoinButtonContainer,
+	StyledBTCCard,
+	MarginContainer,
+} from "../Styles/Container.style";
 import { CoinButton } from "../Styles/Button.style";
 
 const MainView = () => {
@@ -94,31 +102,41 @@ const MainView = () => {
 		}
 	};
 
+	const [buttonColor, setButtonColor] = useState(true);
+
 	let navigate = useNavigate();
 	return (
 		<>
-			<AppContainer>
+			<ProfileContainer>
 				<>
 					<Logout
 						onClick={() => {
 							navigate("/");
 						}}
 					/>
-					<WebSocket
-						setCoinDataHandler={onSetCoinData}
-						btcItem={btcStockList}
-						ondbDataHandler={dbDataHandler}
-					/>
-					<BTCCard btcItem={btcStockList} />
-					<ETHWebSocket
-						setETHDataHandler={onSetEthCoinData}
-						ethItem={ethStockList}
-						ondbEthDataHandler={dbEthDataHandler}
-					/>
-					<ETHCard ethItem={ethStockList} />
+					<InlineContainer>
+						<WebSocket
+							setCoinDataHandler={onSetCoinData}
+							btcItem={btcStockList}
+							ondbDataHandler={dbDataHandler}
+						/>
+						<BTCCard btcItem={btcStockList} />
+						<p />
+						<CoinButtonContainer
+							class="startStock"
+							buttonColor={buttonColor}
+						>
+							<ETHWebSocket
+								setETHDataHandler={onSetEthCoinData}
+								ethItem={ethStockList}
+								ondbEthDataHandler={dbEthDataHandler}
+							/>
+						</CoinButtonContainer>
+						<ETHCard ethItem={ethStockList} />
+					</InlineContainer>
 					<CoinCharts chartData={coinData} ethData={EthcoinData} />
 				</>
-			</AppContainer>
+			</ProfileContainer>
 		</>
 	);
 };

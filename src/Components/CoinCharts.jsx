@@ -1,16 +1,16 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
+import { ChartContainer } from "../Styles/Container.style";
 
 export function CoinCharts({ chartData, ethData }) {
 	return (
 		<>
-			<div className="BTCGraph">
+			<ChartContainer className="BTCGraph">
 				<Line data={chartData} />
-			</div>
-			<div className="ETHGraph">
+
 				<Line data={ethData} />
-			</div>
+			</ChartContainer>
 		</>
 	);
 }

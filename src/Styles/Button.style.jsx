@@ -35,8 +35,9 @@ export const CoinButton = styled.button`
 	border: none;
 	border-radius: 10px;
 	box-shadow: 0px 0px 2px 2px rgb(0, 0, 0);
-	/* display: inline-flex;
-	position: relative; */
+	display: inline-flex;
+	height: 50px;
+	/* position: relative; */
 	/* right: 195px; */
 	/* top: 0px; */
 `;

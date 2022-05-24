@@ -68,43 +68,30 @@ const WebSocket = (props) => {
 		sendMessage(JSON.stringify(apiCall));
 	};
 
+	const [buttonColor, setButtonColor] = useState(false);
+
 	return (
 		<>
-			{/* <div className="row">
-				<div className="col-4" />
-				<div className="col-6 mt-3"> */}
-			<CoinButtonContainer className="startBTCTrades">
-				{/* <div
-					class="btn-toolbar mb-3"
-					role="toolbar"
-					aria-label="Toolbar with button groups"
-				> */}
-				{/* <div
-						class="btn-group mr-2"
-						role="group"
-						aria-label="First group"
-					/> */}
+			<CoinButtonContainer buttonColor={buttonColor}>
 				<CoinButton
+					className="bg-secondary text-white"
 					button
 					type="button"
+					class="startStock"
 					onClick={() => {
 						startLiveTradesBtc();
 					}}
 				>
 					Show Bitcoin
 				</CoinButton>
-				<button
-					class="deletestock"
-					className="border border-dark btn btn-danger btn-md mt-1 m-2"
+				<CoinButton
+					className="bg-danger text-white"
+					class="stopStock"
 					type="button"
 					onClick={stopLiveTradesBtc}
 				>
 					Remove BTC
-				</button>
-				{/* </div>
-					<div className="col-6" />
-				</div> */}
-				{/* </div> */}
+				</CoinButton>
 			</CoinButtonContainer>
 		</>
 	);
@@ -179,39 +166,28 @@ const ETHWebSocket = (props) => {
 		}
 	};
 
+	// create a local state to determine the button color
+
 	return (
 		<>
-			<CoinButtonContainer>
-				{/* <div className="row">
-				<div className="col-4" />
-				<div className="col-6 mt-3"> */}
-				{/* <div
-				class="btn-toolbar mb-3"
-				role="toolbar"
-				aria-label="Toolbar with button groups"
+			<CoinButton
+				class="startStockETH"
+				className="bg-dark text-white"
+				onClick={() => {
+					websocketStatus
+						? setWebsocketStatus(false)
+						: setWebsocketStatus(true);
+				}}
 			>
-				<div
-					class="btn-group mr-2"
-					role="group"
-					aria-label="First group"
-				/>
-				<div className="startETHTrades"> */}
-				<CoinButton
-					onClick={() => {
-						websocketStatus
-							? setWebsocketStatus(false)
-							: setWebsocketStatus(true);
-					}}
-				>
-					Start Ethereum
-				</CoinButton>
-				<CoinButton onClick={stopLiveTradesEth}>Remove ETH</CoinButton>
-				{/* </div>
-				{/* </div>
-					<div className="col-6" />
-				</div> */}
-				{/* </div> */}
-			</CoinButtonContainer>
+				Start Ethereum
+			</CoinButton>
+			<CoinButton
+				className="bg-danger text-white"
+				class="stopStockETH"
+				onClick={stopLiveTradesEth}
+			>
+				Remove ETH
+			</CoinButton>
 		</>
 	);
 };
