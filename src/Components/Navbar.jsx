@@ -15,7 +15,7 @@ import {
 import StockerLogo from "../Img/StockerLogo.png";
 
 function Navbar() {
-	const [extendNav, setExtendNav] = useState(true);
+	const [extendNav, setExtendNav] = useState(false);
 
 	return (
 		<NavbarContainer extendNav={extendNav}>
