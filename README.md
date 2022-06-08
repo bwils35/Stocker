@@ -5,6 +5,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Please visit [Node.js](https://nodejs.org/en/download/) to install the necessary runtime environment.
 
+Please note that the server is not currently deployed!
+
 ## Available Scripts
 
 In the project directory, you can run:
